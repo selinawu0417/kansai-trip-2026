@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 關西親子冬旅</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 讓手機操作起來更順滑的設定 */
+        body { 
+            background-color: #f3f4f6; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 隱藏橫向捲軸但保留功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 卡片進場動畫 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-card { animation: slideUp 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="pb-24 select-none">
+
+    <div class="bg-gradient-to-br from-indigo-700 via-blue-600 to-blue-500 text-white p-6 pb-14 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">關西親子冬旅 🇯🇵</h1>
+                    <p class="text-blue-100 text-sm mt-1 font-medium">2026/02/13 — 02/20 (8天)</p>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[3.5rem]">
+                    <div class="text-xs text-blue-100">氣溫</div>
+                    <div class="text-lg font-bold">5-10°</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6">
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/20 text-white py-2.5 rounded-xl transition active:scale-95">
+                    <i class="fas fa-language"></i> <span>翻譯神器</span>
+                </a>
+                <a href="https://www.google.com/maps/d/" target="_blank" class="flex items-center justify-center gap-2 bg-white text-blue-600 py-2.5 rounded-xl shadow-lg font-bold transition active:scale-95">
+                    <i class="fas fa-map-marked-alt"></i> <span>行程地圖</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+    </div>
+
+    <div class="sticky top-0 z-30 bg-[#f3f4f6]/95 backdrop-blur-sm pt-2 pb-1">
+        <div class="-mt-10 px-4 mb-2">
+            <div id="tabs-container" class="flex gap-2 overflow-x-auto no-scrollbar py-2 px-1 snap-x">
+                </div>
+        </div>
+    </div>
+
+    <div id="content-area" class="px-4 space-y-4 min-h-[50vh]">
+        </div>
+
+    <div class="text-center text-gray-400 text-xs mt-10 mb-4">
+        Made for 2026 Trip
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. 行程資料庫 (在這裡修改行程)
+        // ==========================================
+        const tripData = [
+            {
+                day: "D1",
+                date: "2/13 (五)",
+                area: "台北 ✈️ 京都",
+                events: [
+                    { time: "14:20", title: "飛往大阪關西", desc: "桃園 TPE → KIX (預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
+                    { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
+                    { time: "20:00", title: "入住：Emion 京都", desc: "Check-in 放置行李", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=京都Emion飯店" },
+                    { time: "20:30", title: "晚餐", desc: "京都拉麵小路 (本家第一旭) 或 居酒屋 Jurakudai", type: "food", icon: "fa-utensils" }
+                ]
+            },
+            {
+                day: "D2",
+                date: "2/14 (六)",
+                area: "京都文化探索",
+                events: [
+                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議早到避人潮", type: "spot", icon: "fa-torii-gate" },
+                    { time: "12:00", title: "錦市場午餐", desc: "鮮魚木村、壽司、抹茶甜點", type: "food", icon: "fa-fish" },
+                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂/三年坂 → 八坂神社", type: "walk", icon: "fa-shoe-prints" },
+                    { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步", type: "spot", icon: "fa-camera" },
+                    { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed" }
+                ]
+            },
+            {
+                day: "D3",
+                date: "2/15 (日)",
+                area: "自駕 🚗 雄琴溫泉",
+                events: [
+                    { time: "09:00", title: "京都站取車", desc: "Times / ORIX / Nippon (八条口)", type: "car", icon: "fa-car" },
+                    { time: "10:30", title: "抵達雄琴溫泉", desc: "行李先寄放「琵琶湖綠水亭」", type: "hotel", icon: "fa-luggage-cart", link: "https://www.google.com/maps/search/?api=1&query=琵琶湖綠水亭" },
+                    { time: "11:00", title: "琵琶湖 Valley 滑雪", desc: "自駕至志賀 I.C. 搭纜車上山，玩雪盆", type: "snow", icon: "fa-snowflake" },
+                    { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡", type: "food", icon: "fa-hamburger" },
+                    { time: "16:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景 + 懷石料理", type: "hotel", icon: "fa-hot-tub" }
+                ]
+            },
+            {
+                day: "D4",
+                date: "2/16 (一)",
+                area: "琵琶湖玩雪/觀光",
+                events: [
+                    { time: "上午", title: "方案A: 繼續滑雪", desc: "上午再玩雪盆+初學練習", type: "snow", icon: "fa-skiing" },
+                    { time: "上午", title: "方案B: 琵琶湖 Terrace", desc: "純搭纜車看雲海美景，不滑雪", type: "spot", icon: "fa-mountain" },
+                    { time: "下午", title: "購物或觀光", desc: "三井 Outlet 竜王 或 近江神宮", type: "shop", icon: "fa-shopping-bag" },
+                    { time: "宿", title: "續住 綠水亭", desc: "享受最後一晚溫泉", type: "hotel", icon: "fa-bed" }
+                ]
+            },
+            {
+                day: "D5",
+                date: "2/17 (二)",
+                area: "移動 🚗 大阪",
+                events: [
+                    { time: "09:30", title: "出發前往大阪", desc: "名神高速 → 阪神高速 (堺筋本町出口)", type: "car", icon: "fa-car-side" },
+                    { time: "11:30", title: "市區還車", desc: "ORIX 堺筋本町店還車", type: "transport", icon: "fa-check-circle" },
+                    { time: "12:30", title: "入住：KOKO HOTEL", desc: "Check-in 放行李", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=大阪KOKOHotel" },
+                    { time: "14:00", title: "大阪城公園", desc: "小孩放電跑跑", type: "spot", icon: "fa-tree" },
+                    { time: "晚餐", title: "黑門市場", desc: "美食巡禮", type: "food", icon: "fa-drumstick-bite" }
+                ]
+            },
+            {
+                day: "D6",
+                date: "2/18 (三)",
+                area: "天王寺親子遊",
+                events: [
+                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛", type: "spot", icon: "fa-hippo" },
+                    { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照", type: "spot", icon: "fa-cloud" },
+                    { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決", type: "shop", icon: "fa-shopping-cart" },
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed" }
+                ]
+            },
+            {
+                day: "D7",
+                date: "2/19 (四)",
+                area: "大阪港區一日遊",
+                events: [
+                    { time: "09:30", title: "海遊館", desc: "🐠 世界級水族館，必看鯨鯊", type: "spot", icon: "fa-fish" },
+                    { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景", type: "spot", icon: "fa-dharmachakra" },
+                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂", type: "spot", icon: "fa-cubes" },
+                    { time: "17:00", title: "聖瑪麗亞號", desc: "搭船看夕陽 + 港灣村晚餐", type: "spot", icon: "fa-ship" }
+                ]
+            },
+            {
+                day: "D8",
+                date: "2/20 (五)",
+                area: "大阪 ✈️ 台北",
+                events: [
+                    { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買", type: "shop", icon: "fa-gift" },
+                    { time: "11:30", title: "前往機場", desc: "南海電鐵 or 利木津巴士 (預留60分)", type: "transport", icon: "fa-bus" },
+                    { time: "14:30", title: "飛往台北", desc: "KIX 14:30 → TPE 16:45", type: "flight", icon: "fa-plane-arrival" },
+                    { time: "16:45", title: "抵達", desc: "甜蜜的家", type: "home", icon: "fa-home" }
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 2. 程式邏輯 (負責把資料畫到畫面上)
+        // ==========================================
+        const tabsContainer = document.getElementById('tabs-container');
+        const contentArea = document.getElementById('content-area');
+        let activeIndex = 0;
+
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            tripData.forEach((item, index) => {
+                const isActive = index === activeIndex;
+                const btn = document.createElement('div');
+                btn.className = `
+                    flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center
+                    ${isActive ? 'bg-blue-600 text-white shadow-lg scale-105 ring-2 ring-blue-300' : 'bg-white text-gray-500 shadow-sm'}
+                `;
+                btn.innerHTML = `
+                    <span class="text-[10px] font-medium opacity-80">${item.date.split(' ')[0]}</span>
+                    <span class="text-xl font-bold">${item.day}</span>
+                `;
+                btn.onclick = () => {
+                    activeIndex = index;
+                    renderTabs();
+                    renderContent();
+                    // 點擊後自動捲動讓該 Tab 置中
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                };
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderContent() {
+            const data = tripData[activeIndex];
+            contentArea.innerHTML = ''; // 清空舊內容
+
+            // 1. 標題區
+            const headerHtml = `
+                <div class="flex justify-between items-end mb-4 px-1 animate-card" style="animation-delay: 0ms">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">${data.date}</h2>
+                        <div class="flex items-center text-gray-500 text-sm mt-1">
+                            <i class="fas fa-map-marker-alt text-red-500 mr-1.5"></i> ${data.area}
+                        </div>
+                    </div>
+                </div>
+            `;
+            contentArea.insertAdjacentHTML('beforeend', headerHtml);
+
+            // 2. 列表區
+            data.events.forEach((event, idx) => {
+                // 定義顏色樣式
+                let styleClass = "bg-white border-l-[6px] border-gray-300"; // 預設
+                let iconClass = "text-gray-400";
+                
+                if(event.type === 'flight') { styleClass = "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-none"; iconClass = "text-white/80"; }
+                else if(event.type === 'snow') { styleClass = "bg-gradient-to-r from-cyan-400 to-sky-400 text-white border-none"; iconClass = "text-white/90"; }
+                else if(event.type === 'hotel') { styleClass = "bg-indigo-50 border-indigo-500"; iconClass = "text-indigo-500"; }
+                else if(event.type === 'food') { styleClass = "bg-orange-50 border-orange-400"; iconClass = "text-orange-500"; }
+                else if(event.type === 'spot') { styleClass = "bg-white border-green-500"; iconClass = "text-green-500"; }
+                else if(event.type === 'car') { styleClass = "bg-zinc-100 border-zinc-500"; iconClass = "text-zinc-500"; }
+
+                const isDarkBg = (event.type === 'flight' || event.type === 'snow');
+                const titleColor = isDarkBg ? 'text-white' : 'text-gray-800';
+                const descColor = isDarkBg ? 'text-white/80' : 'text-gray-500';
+                const timeColor = isDarkBg ? 'text-white/90' : 'text-gray-500';
+
+                // 產生卡片 HTML
+                const card = document.createElement('div');
+                card.className = `${styleClass} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start`;
+                card.style.animationDelay = `${idx * 50 + 50}ms`; // 瀑布流動畫效果
+                
+                card.innerHTML = `
+                    <div class="flex flex-col items-center pt-1 w-12 text-center flex-shrink-0">
+                        <div class="${timeColor} text-xs font-bold mb-1">${event.time}</div>
+                        <i class="fas ${event.icon} ${iconClass} text-xl"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="${titleColor} font-bold text-lg leading-tight truncate">${event.title}</h3>
+                        <p class="${descColor} text-sm mt-1 leading-relaxed">${event.desc}</p>
+                        ${event.link ? `
+                        <a href="${event.link}" target="_blank" class="inline-flex items-center mt-3 text-xs px-3 py-1.5 rounded-full ${isDarkBg ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'} hover:opacity-80 transition">
+                            <i class="fas fa-location-arrow mr-1.5"></i> 導航
+                        </a>` : ''}
+                    </div>
+                `;
+                contentArea.appendChild(card);
+            });
+            
+            // 底部留白，避免被最後的邊緣切到
+            const spacer = document.createElement('div');
+            spacer.className = "h-8";
+            contentArea.appendChild(spacer);
+        }
+
+        // 啟動
+        renderTabs();
+        renderContent();
+    </script>
+</body>
+</html>
