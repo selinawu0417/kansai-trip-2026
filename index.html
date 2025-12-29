@@ -7,22 +7,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 讓手機操作起來更順滑的設定 */
         body { 
             background-color: #f3f4f6; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 隱藏橫向捲軸但保留功能 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* 卡片進場動畫 */
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-card { animation: slideUp 0.3s ease-out forwards; }
+
+        /* 自訂核取方塊樣式 */
+        .checkbox-wrapper input:checked + div {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+        .checkbox-wrapper input:checked + div svg {
+            display: block;
+        }
     </style>
 </head>
 <body class="pb-24 select-none">
@@ -49,7 +55,6 @@
                 </a>
             </div>
         </div>
-        
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
     </div>
 
@@ -68,8 +73,8 @@
     </div>
 
     <script>
-       // ==========================================
-        // 1. 行程資料庫 (修正版：已換成真實 Google Maps 導航連結)
+        // ==========================================
+        // 1. 行程資料 (含真實 Google Maps 連結)
         // ==========================================
         const tripData = [
             {
@@ -79,22 +84,8 @@
                 events: [
                     { time: "14:20", title: "飛往大阪關西", desc: "桃園 TPE → KIX (預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
-                    { 
-                        time: "20:00", 
-                        title: "入住：Emion 京都", 
-                        desc: "就在梅小路京都西站旁，這間飯店位置超好！", 
-                        type: "hotel", 
-                        icon: "fa-suitcase", 
-                        link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" 
-                    },
-                    { 
-                        time: "20:30", 
-                        title: "晚餐：聚樂第 (Jurakudai)", 
-                        desc: "京都站前居酒屋，氣氛很好的日式料理", 
-                        type: "food", 
-                        icon: "fa-utensils",
-                        link: "https://www.google.com/maps/search/?api=1&query=Kyoto+Ekimae+Bar+Jurakudai"
-                    }
+                    { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁，這間飯店位置超好！", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
+                    { time: "20:30", title: "晚餐：聚樂第 (Jurakudai)", desc: "京都站前居酒屋，氣氛很好的日式料理", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/search/?api=1&query=Kyoto+Ekimae+Bar+Jurakudai" }
                 ]
             },
             {
@@ -103,7 +94,7 @@
                 area: "京都文化探索",
                 events: [
                     { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議早到避人潮", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
-                    { time: "12:00", title: "錦市場午餐", desc: "鮮魚木村、壽司、抹茶甜點", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market+Kyoto" },
+                    { time: "12:00", title: "錦市場午餐", desc: "鮮魚木村、壽司、抹茶甜點", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
                     { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂/三年坂 → 八坂神社", type: "walk", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
                     { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
                     { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed" }
@@ -114,30 +105,9 @@
                 date: "2/15 (日)",
                 area: "自駕 🚗 雄琴溫泉",
                 events: [
-                    { 
-                        time: "09:00", 
-                        title: "京都站取車 (ORIX)", 
-                        desc: "京都站八條口店 (Kyoto Station Hachijoguchi)", 
-                        type: "car", 
-                        icon: "fa-car", 
-                        link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-a-car+Kyoto+Station+Hachijoguchi" 
-                    },
-                    { 
-                        time: "10:30", 
-                        title: "抵達雄琴溫泉", 
-                        desc: "行李先寄放「琵琶湖綠水亭」", 
-                        type: "hotel", 
-                        icon: "fa-luggage-cart", 
-                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" 
-                    },
-                    { 
-                        time: "11:00", 
-                        title: "琵琶湖 Valley 滑雪", 
-                        desc: "導航至 '琵琶湖 Valley 纜車口' (Ropeway)", 
-                        type: "snow", 
-                        icon: "fa-snowflake",
-                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway"
-                    },
+                    { time: "09:00", title: "京都站取車 (ORIX)", desc: "京都站八條口店 (Kyoto Station Hachijoguchi)", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Kyoto+Station+Hachijo+Exit" },
+                    { time: "10:30", title: "抵達雄琴溫泉", desc: "行李先寄放「琵琶湖綠水亭」", type: "hotel", icon: "fa-luggage-cart", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" },
+                    { time: "11:00", title: "琵琶湖 Valley 滑雪", desc: "導航至 '琵琶湖 Valley 纜車口' (Ropeway)", type: "snow", icon: "fa-snowflake", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway+Station" },
                     { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡", type: "food", icon: "fa-hamburger" },
                     { time: "16:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景 + 懷石料理", type: "hotel", icon: "fa-hot-tub" }
                 ]
@@ -148,22 +118,8 @@
                 area: "琵琶湖玩雪/觀光",
                 events: [
                     { time: "上午", title: "方案A: 繼續滑雪", desc: "上午再玩雪盆+初學練習", type: "snow", icon: "fa-skiing" },
-                    { 
-                        time: "上午", 
-                        title: "方案B: 琵琶湖 Terrace", 
-                        desc: "純搭纜車看雲海美景，不滑雪", 
-                        type: "spot", 
-                        icon: "fa-mountain",
-                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Terrace"
-                    },
-                    { 
-                        time: "下午", 
-                        title: "三井 Outlet 龍王", 
-                        desc: "關西最好買的 Outlet！", 
-                        type: "shop", 
-                        icon: "fa-shopping-bag",
-                        link: "https://www.google.com/maps/search/?api=1&query=Mitsui+Outlet+Park+Shiga+Ryuo"
-                    },
+                    { time: "上午", title: "方案B: 琵琶湖 Terrace", desc: "純搭纜車看雲海美景，不滑雪", type: "spot", icon: "fa-mountain", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Terrace" },
+                    { time: "下午", title: "三井 Outlet 龍王", desc: "關西最好買的 Outlet！", type: "shop", icon: "fa-shopping-bag", link: "https://www.google.com/maps/search/?api=1&query=Mitsui+Outlet+Park+Shiga+Ryuo" },
                     { time: "宿", title: "續住 綠水亭", desc: "享受最後一晚溫泉", type: "hotel", icon: "fa-bed" }
                 ]
             },
@@ -173,24 +129,10 @@
                 area: "移動 🚗 大阪",
                 events: [
                     { time: "09:30", title: "出發前往大阪", desc: "名神高速 → 阪神高速 (約 1.5 小時)", type: "car", icon: "fa-car-side" },
-                    { 
-                        time: "11:30", 
-                        title: "ORIX 本町還車", 
-                        desc: "導航至：ORIX Rent-a-car Hommachi (近堺筋本町)", 
-                        type: "transport", 
-                        icon: "fa-check-circle",
-                        link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-a-car+Honmachi+Ekimae"
-                    },
-                    { 
-                        time: "12:30", 
-                        title: "入住：KOKO HOTEL", 
-                        desc: "心齋橋分館 (Minamisenba)，從還車點走路就到", 
-                        type: "hotel", 
-                        icon: "fa-hotel", 
-                        link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" 
-                    },
+                    { time: "11:30", title: "ORIX 本町還車", desc: "導航至：ORIX Rent-a-car Hommachi (近堺筋本町)", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Honmachi" },
+                    { time: "12:30", title: "入住：KOKO HOTEL", desc: "心齋橋分館 (Minamisenba)，從還車點走路就到", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" },
                     { time: "14:00", title: "大阪城公園", desc: "小孩放電跑跑", type: "spot", icon: "fa-tree", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Castle+Park" },
-                    { time: "晚餐", title: "黑門市場", desc: "美食巡禮", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Market" }
+                    { time: "晚餐", title: "黑門市場", desc: "美食巡禮", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market" }
                 ]
             },
             {
@@ -200,7 +142,7 @@
                 events: [
                     { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
                     { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
-                    { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Qs+Mall" },
+                    { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Q's+Mall" },
                     { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed" }
                 ]
             },
@@ -211,8 +153,8 @@
                 events: [
                     { time: "09:30", title: "海遊館", desc: "🐠 世界級水族館，必看鯨鯊", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
                     { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
-                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=LEGOLAND+Discovery+Center+Osaka" },
-                    { time: "17:00", title: "聖瑪麗亞號", desc: "搭船看夕陽 + 港灣村晚餐", type: "spot", icon: "fa-ship", link: "https://www.google.com/maps/search/?api=1&query=Santa+Maria+Cruise+Osaka" }
+                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=Legoland+Discovery+Center+Osaka" },
+                    { time: "17:00", title: "聖瑪麗亞號", desc: "搭船看夕陽 + 港灣村晚餐", type: "spot", icon: "fa-ship", link: "https://www.google.com/maps/search/?api=1&query=Santa+Maria+Cruise" }
                 ]
             },
             {
@@ -220,22 +162,65 @@
                 date: "2/20 (五)",
                 area: "大阪 ✈️ 台北",
                 events: [
-                    { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買", type: "shop", icon: "fa-gift", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Underground+Shopping+Center" },
+                    { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買", type: "shop", icon: "fa-gift", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Underground+Shopping+Street" },
                     { time: "11:30", title: "前往機場", desc: "南海電鐵 or 利木津巴士 (預留60分)", type: "transport", icon: "fa-bus" },
                     { time: "14:30", title: "飛往台北", desc: "KIX 14:30 → TPE 16:45", type: "flight", icon: "fa-plane-arrival" },
                     { time: "16:45", title: "抵達", desc: "甜蜜的家", type: "home", icon: "fa-home" }
                 ]
             }
         ];
+
         // ==========================================
-        // 2. 程式邏輯 (負責把資料畫到畫面上)
+        // 2. 檢查表資料 (客製化清單)
+        // ==========================================
+        const checklistData = [
+            {
+                category: "必備證件 & 金錢",
+                items: [
+                    "護照 (有效期6個月以上)",
+                    "Visit Japan Web QR Code 截圖",
+                    "機票 e-ticket (存手機)",
+                    "日幣現金 (不用換太多)",
+                    "信用卡 (海外回饋高)",
+                    "海外網卡 / Roaming 開通"
+                ]
+            },
+            {
+                category: "冬季穿搭 (2月很冷!)",
+                items: [
+                    "羽絨外套 / 防風大衣",
+                    "發熱衣 (Heattech) x 3",
+                    "毛帽 (遮耳)",
+                    "手套 (重要!)",
+                    "圍巾 / 脖圍",
+                    "厚襪子 (羊毛襪)",
+                    "好走的鞋 (防水佳)"
+                ]
+            },
+            {
+                category: "電子 & 雜物",
+                items: [
+                    "手機充電器",
+                    "行動電源 (必備!)",
+                    "環保購物袋 (日本不給塑膠袋)",
+                    "雨傘 (摺疊)",
+                    "個人常備藥品",
+                    "保濕乳液 / 護唇膏 (超乾)"
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 3. 程式邏輯
         // ==========================================
         const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
-        let activeIndex = 0;
+        let activeIndex = 0; // 0~7 是行程, 99 是清單
 
         function renderTabs() {
             tabsContainer.innerHTML = '';
+            
+            // 1. 渲染 D1 - D8
             tripData.forEach((item, index) => {
                 const isActive = index === activeIndex;
                 const btn = document.createElement('div');
@@ -251,18 +236,36 @@
                     activeIndex = index;
                     renderTabs();
                     renderContent();
-                    // 點擊後自動捲動讓該 Tab 置中
                     btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 };
                 tabsContainer.appendChild(btn);
             });
+
+            // 2. 渲染 [清單] 按鈕
+            const isListActive = activeIndex === 99;
+            const listBtn = document.createElement('div');
+            listBtn.className = `
+                flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center
+                ${isListActive ? 'bg-orange-500 text-white shadow-lg scale-105 ring-2 ring-orange-300' : 'bg-white text-gray-500 shadow-sm'}
+            `;
+            listBtn.innerHTML = `
+                <span class="text-[10px] font-medium opacity-80">Check</span>
+                <span class="text-xl font-bold"><i class="fas fa-clipboard-check"></i></span>
+            `;
+            listBtn.onclick = () => {
+                activeIndex = 99;
+                renderTabs();
+                renderChecklist(); // 呼叫清單渲染
+                listBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            };
+            tabsContainer.appendChild(listBtn);
         }
 
+        // 渲染行程 (原本的功能)
         function renderContent() {
             const data = tripData[activeIndex];
-            contentArea.innerHTML = ''; // 清空舊內容
+            contentArea.innerHTML = '';
 
-            // 1. 標題區
             const headerHtml = `
                 <div class="flex justify-between items-end mb-4 px-1 animate-card" style="animation-delay: 0ms">
                     <div>
@@ -275,10 +278,8 @@
             `;
             contentArea.insertAdjacentHTML('beforeend', headerHtml);
 
-            // 2. 列表區
             data.events.forEach((event, idx) => {
-                // 定義顏色樣式
-                let styleClass = "bg-white border-l-[6px] border-gray-300"; // 預設
+                let styleClass = "bg-white border-l-[6px] border-gray-300"; 
                 let iconClass = "text-gray-400";
                 
                 if(event.type === 'flight') { styleClass = "bg-gradient-to-r from-sky-500 to-blue-600 text-white border-none"; iconClass = "text-white/80"; }
@@ -293,10 +294,9 @@
                 const descColor = isDarkBg ? 'text-white/80' : 'text-gray-500';
                 const timeColor = isDarkBg ? 'text-white/90' : 'text-gray-500';
 
-                // 產生卡片 HTML
                 const card = document.createElement('div');
                 card.className = `${styleClass} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start`;
-                card.style.animationDelay = `${idx * 50 + 50}ms`; // 瀑布流動畫效果
+                card.style.animationDelay = `${idx * 50 + 50}ms`;
                 
                 card.innerHTML = `
                     <div class="flex flex-col items-center pt-1 w-12 text-center flex-shrink-0">
@@ -315,16 +315,72 @@
                 contentArea.appendChild(card);
             });
             
-            // 底部留白，避免被最後的邊緣切到
             const spacer = document.createElement('div');
             spacer.className = "h-8";
             contentArea.appendChild(spacer);
         }
+
+        // 渲染檢查表 (新功能)
+        function renderChecklist() {
+            contentArea.innerHTML = '';
+            
+            // 讀取已儲存的狀態
+            const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
+
+            const headerHtml = `
+                <div class="mb-4 px-1 animate-card">
+                    <h2 class="text-2xl font-bold text-gray-800">行李檢查表</h2>
+                    <p class="text-gray-500 text-sm mt-1">冬天日本行必備清單</p>
+                </div>
+            `;
+            contentArea.insertAdjacentHTML('beforeend', headerHtml);
+
+            checklistData.forEach((category, idx) => {
+                const section = document.createElement('div');
+                section.className = "bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card";
+                section.style.animationDelay = `${idx * 100}ms`;
+
+                let itemsHtml = category.items.map(item => {
+                    const isChecked = savedState[item] ? 'checked' : '';
+                    return `
+                        <label class="checkbox-wrapper flex items-center gap-3 py-3 border-b last:border-0 border-gray-100 cursor-pointer">
+                            <input type="checkbox" class="hidden peer" value="${item}" ${isChecked} onchange="toggleCheck(this)">
+                            <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center transition-all peer-checked:bg-blue-500 peer-checked:border-blue-500">
+                                <svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="text-gray-700 peer-checked:text-gray-400 peer-checked:line-through transition-all">${item}</span>
+                        </label>
+                    `;
+                }).join('');
+
+                section.innerHTML = `
+                    <h3 class="font-bold text-lg text-blue-600 mb-2 border-l-4 border-blue-600 pl-3">${category.category}</h3>
+                    <div class="flex flex-col">
+                        ${itemsHtml}
+                    </div>
+                `;
+                contentArea.appendChild(section);
+            });
+            
+            const spacer = document.createElement('div');
+            spacer.className = "h-8";
+            contentArea.appendChild(spacer);
+        }
+
+        // 儲存勾選狀態到 LocalStorage
+        window.toggleCheck = function(checkbox) {
+            const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
+            if (checkbox.checked) {
+                savedState[checkbox.value] = true;
+            } else {
+                delete savedState[checkbox.value];
+            }
+            localStorage.setItem('trip_checklist', JSON.stringify(savedState));
+        };
 
         // 啟動
         renderTabs();
         renderContent();
     </script>
 </body>
-
 </html>
