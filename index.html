@@ -171,7 +171,7 @@
         ];
 
         // ==========================================
-        // 2. 檢查表資料 (客製化清單)
+        // 2. 檢查表資料 (修正語法錯誤)
         // ==========================================
         const checklistData = [
             {
@@ -184,70 +184,103 @@
                     "Visit Japan Web QR Code 截圖",
                     "機票 e-ticket (存手機)",
                     "日幣現金 (不用換太多)",
-                    "有預先刷機票或住宿的信用卡 或 海外回饋高的信用卡",
-                    "海外網卡 / ESIM / 漫遊開通",
-                    "換卡針",
-                    "iphone 西瓜卡",
-                    "影印預約資料 (機票 住宿 租車 護照影本)"
+                    "海外高回饋信用卡 (至少2張)",
+					"有預先刷機票或住宿的信用卡",
+                    "海外網卡 / eSIM / 漫遊開通",
+                    "換卡針 (如用實體卡)",
+                    "iPhone 西瓜卡 (Suica) 綁定",
+                    "預約資料影本 (機票/住宿/租車/護照)"
                 ]
             },
             {
                 category: "冬季穿搭 (2月很冷!)",
                 items: [
                     "羽絨外套 / 防風大衣",
-                    "發熱衣",
+                    "發熱衣 (Heattech)",
                     "大人防寒衣物",
                     "小孩防寒衣物",
                     "毛帽 (遮耳)",
-                    "手套",
+                    "手套 (滑雪必備)",
                     "圍巾 / 脖圍",
-                    "厚襪子",
-                    "暖暖包",
-                    "雪鞋 (防水佳)"
-                    "好走的鞋 (行走佳)"
+                    "厚襪子 (羊毛襪)",
+                    "暖暖包 (貼式/手握)",
+                    "雪鞋 (防水佳)", 
+                    "好走的鞋 (行走佳)",
                     "一大兩小行李箱",
-                    "暖暖包",
-                    "口罩"
-                    
+                    "備用口罩"
                 ]
             },
             {
                 category: "電子 & 雜物",
                 items: [
                     "手機充電器",
-                    "行動電源(要hand carry)",
-                    "插座 充電線",
-                    "轉接頭", 
-                    "拍照支架(自拍棒)",
-                    "環保購物袋 (日本不給塑膠袋)",
+                    "行動電源 (要放在隨身行李!)",
+                    "插座 / 充電線",
+                    "轉接頭 (日本雙孔扁插，台灣通用)", 
+                    "拍照腳架 / 自拍棒",
+                    "環保購物袋",
                     "雨傘 (摺疊)",
-                    "個人常備藥品 (腸胃藥 尋麻疹 感冒藥 暈車藥 發燒 普拿疼 過敏藥 拉肚子藥)",
-                    "盥洗用品(沐浴乳 洗髮乳 牙膏 牙刷 牙線)",
-                    "化妝品",
-                    "女孩髮圈綁頭髮飾品髮箍",                    
-                    "保養品(洗面乳化妝水乳液)",
+                    "常備藥品 (腸胃/感冒/暈車/退燒/過敏/尋麻疹/普拿疼)",
+                    "盥洗用品 (牙刷/牙膏/牙線)",
+                    "化妝品 / 保養品 (洗面乳化妝水乳液)",
+                    "小孩綁髮飾品髮箍",                    
                     "免洗褲",
-                    "保濕乳液 / 護唇膏",
-                    "垃圾袋",
-                    "隱形藥水",
+                    "護唇膏 / 護手霜",
+                    "塑膠袋 (裝髒衣/垃圾)",
+                    "隱形眼鏡 & 藥水",
                     "眼鏡",
-                    "衛生紙 濕紙巾",
+                    "衛生紙 / 濕紙巾",
                     "衛生棉",                    
-                    "水壺",
-                    "耳塞",                    
+                    "水壺 / 保溫瓶",
+                    "耳塞 / 眼罩",                    
                     "手機掛繩",   
-                    "腳架",    
-                    "IPAD離線影片下載"    
+                    "iPad (先下載好離線影片!)"    
                 ]
             }
         ];
 
         // ==========================================
-        // 3. 程式邏輯
+        // 3. 指南資料 (新增：VJW & 退稅)
+        // ==========================================
+        const guideData = [
+            {
+                title: "入境教學：Visit Japan Web",
+                icon: "fa-passport",
+                color: "text-blue-600",
+                bg: "bg-blue-50",
+                content: `
+                    <ul class="list-decimal list-inside space-y-2 text-sm text-gray-700 mt-2">
+                        <li><strong>出發前註冊：</strong> 請至 Visit Japan Web 網站填寫「入境審查」與「海關申報」。</li>
+                        <li><strong>QR Code 合併：</strong> 2024 年後系統更新，入境與海關已合併為<span class="text-red-500 font-bold">一個 QR Code</span>。</li>
+                        <li><strong>一人一碼：</strong> 大人需各自出示，小孩可掛在同行家人帳號下切換顯示。</li>
+                        <li><strong>截圖備用：</strong> 機場網路可能不穩，請務必<span class="text-red-500 font-bold">先截圖儲存</span> QR Code 畫面。</li>
+                    </ul>
+                    <a href="https://vjw-lp.digital.go.jp/zh-hant/" target="_blank" class="mt-3 inline-block text-white bg-blue-600 text-xs px-3 py-2 rounded-lg shadow">前往 Visit Japan Web</a>
+                `
+            },
+            {
+                title: "日本最新退稅說明 (2025/2026)",
+                icon: "fa-coins",
+                color: "text-yellow-600",
+                bg: "bg-yellow-50",
+                content: `
+                    <ul class="list-disc list-inside space-y-2 text-sm text-gray-700 mt-2">
+                        <li><strong>免稅門檻：</strong> 同一天、同一店家消費滿 <span class="text-red-500 font-bold">5,000 日圓</span> (未稅) 即可退稅 (10%)。</li>
+                        <li><strong>出示證件：</strong> 結帳時請出示護照，或使用 Visit Japan Web 內的「免稅 QR Code」(需店家支援)。</li>
+                        <li><strong>消耗品規定：</strong> 藥妝、零食等消耗品會被裝入<span class="text-red-500 font-bold">特殊密封袋</span>，在日本境內<span class="text-red-500 font-bold">不可拆封</span>，否則離境可能被補徵稅。</li>
+                        <li><strong>一般物品：</strong> 衣服、鞋子、電器等可直接使用，不用密封。</li>
+                        <li><strong>退稅方式：</strong> 目前多數店家為「直接支付未稅價」，部分百貨公司為「先含稅結帳，再去退稅櫃台領現金」。</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // ==========================================
+        // 4. 程式邏輯
         // ==========================================
         const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
-        let activeIndex = 0; // 0~7 是行程, 99 是清單
+        let activeIndex = 0; // 0~7:行程, 99:清單, 100:指南
 
         function renderTabs() {
             tabsContainer.innerHTML = '';
@@ -273,7 +306,26 @@
                 tabsContainer.appendChild(btn);
             });
 
-            // 2. 渲染 [清單] 按鈕
+            // 2. 渲染 [指南] 按鈕 (新增)
+            const isGuideActive = activeIndex === 100;
+            const guideBtn = document.createElement('div');
+            guideBtn.className = `
+                flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center
+                ${isGuideActive ? 'bg-emerald-500 text-white shadow-lg scale-105 ring-2 ring-emerald-300' : 'bg-white text-gray-500 shadow-sm'}
+            `;
+            guideBtn.innerHTML = `
+                <span class="text-[10px] font-medium opacity-80">Info</span>
+                <span class="text-xl font-bold"><i class="fas fa-book-open"></i></span>
+            `;
+            guideBtn.onclick = () => {
+                activeIndex = 100;
+                renderTabs();
+                renderGuide(); 
+                guideBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            };
+            tabsContainer.appendChild(guideBtn);
+
+            // 3. 渲染 [清單] 按鈕
             const isListActive = activeIndex === 99;
             const listBtn = document.createElement('div');
             listBtn.className = `
@@ -287,13 +339,13 @@
             listBtn.onclick = () => {
                 activeIndex = 99;
                 renderTabs();
-                renderChecklist(); // 呼叫清單渲染
+                renderChecklist();
                 listBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             };
             tabsContainer.appendChild(listBtn);
         }
 
-        // 渲染行程 (原本的功能)
+        // 渲染行程
         function renderContent() {
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
@@ -352,11 +404,45 @@
             contentArea.appendChild(spacer);
         }
 
-        // 渲染檢查表 (新功能)
-        function renderChecklist() {
+        // 渲染指南 (新增)
+        function renderGuide() {
             contentArea.innerHTML = '';
             
-            // 讀取已儲存的狀態
+            const headerHtml = `
+                <div class="mb-4 px-1 animate-card">
+                    <h2 class="text-2xl font-bold text-gray-800">旅遊指南</h2>
+                    <p class="text-gray-500 text-sm mt-1">入境 & 退稅重點整理</p>
+                </div>
+            `;
+            contentArea.insertAdjacentHTML('beforeend', headerHtml);
+
+            guideData.forEach((item, idx) => {
+                const section = document.createElement('div');
+                section.className = `bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card border-l-4 ${item.color.replace('text', 'border')}`;
+                section.style.animationDelay = `${idx * 100}ms`;
+
+                section.innerHTML = `
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full ${item.bg} flex items-center justify-center">
+                            <i class="fas ${item.icon} ${item.color} text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800">${item.title}</h3>
+                    </div>
+                    <div class="text-gray-600 leading-relaxed">
+                        ${item.content}
+                    </div>
+                `;
+                contentArea.appendChild(section);
+            });
+            
+            const spacer = document.createElement('div');
+            spacer.className = "h-8";
+            contentArea.appendChild(spacer);
+        }
+
+        // 渲染檢查表
+        function renderChecklist() {
+            contentArea.innerHTML = '';
             const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
 
             const headerHtml = `
@@ -399,7 +485,6 @@
             contentArea.appendChild(spacer);
         }
 
-        // 儲存勾選狀態到 LocalStorage
         window.toggleCheck = function(checkbox) {
             const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
             if (checkbox.checked) {
@@ -416,8 +501,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
