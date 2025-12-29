@@ -68,8 +68,8 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. 行程資料庫 (在這裡修改行程)
+       // ==========================================
+        // 1. 行程資料庫 (修正版：已換成真實 Google Maps 導航連結)
         // ==========================================
         const tripData = [
             {
@@ -79,8 +79,22 @@
                 events: [
                     { time: "14:20", title: "飛往大阪關西", desc: "桃園 TPE → KIX (預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
-                    { time: "20:00", title: "入住：Emion 京都", desc: "Check-in 放置行李", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=京都Emion飯店" },
-                    { time: "20:30", title: "晚餐", desc: "京都拉麵小路 (本家第一旭) 或 居酒屋 Jurakudai", type: "food", icon: "fa-utensils" }
+                    { 
+                        time: "20:00", 
+                        title: "入住：Emion 京都", 
+                        desc: "就在梅小路京都西站旁，這間飯店位置超好！", 
+                        type: "hotel", 
+                        icon: "fa-suitcase", 
+                        link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" 
+                    },
+                    { 
+                        time: "20:30", 
+                        title: "晚餐：聚樂第 (Jurakudai)", 
+                        desc: "京都站前居酒屋，氣氛很好的日式料理", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/search/?api=1&query=Kyoto+Ekimae+Bar+Jurakudai"
+                    }
                 ]
             },
             {
@@ -88,10 +102,10 @@
                 date: "2/14 (六)",
                 area: "京都文化探索",
                 events: [
-                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議早到避人潮", type: "spot", icon: "fa-torii-gate" },
-                    { time: "12:00", title: "錦市場午餐", desc: "鮮魚木村、壽司、抹茶甜點", type: "food", icon: "fa-fish" },
-                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂/三年坂 → 八坂神社", type: "walk", icon: "fa-shoe-prints" },
-                    { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步", type: "spot", icon: "fa-camera" },
+                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議早到避人潮", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+                    { time: "12:00", title: "錦市場午餐", desc: "鮮魚木村、壽司、抹茶甜點", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market+Kyoto" },
+                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂/三年坂 → 八坂神社", type: "walk", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
+                    { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
                     { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed" }
                 ]
             },
@@ -100,9 +114,30 @@
                 date: "2/15 (日)",
                 area: "自駕 🚗 雄琴溫泉",
                 events: [
-                    { time: "09:00", title: "京都站取車", desc: "Times / ORIX / Nippon (八条口)", type: "car", icon: "fa-car" },
-                    { time: "10:30", title: "抵達雄琴溫泉", desc: "行李先寄放「琵琶湖綠水亭」", type: "hotel", icon: "fa-luggage-cart", link: "https://www.google.com/maps/search/?api=1&query=琵琶湖綠水亭" },
-                    { time: "11:00", title: "琵琶湖 Valley 滑雪", desc: "自駕至志賀 I.C. 搭纜車上山，玩雪盆", type: "snow", icon: "fa-snowflake" },
+                    { 
+                        time: "09:00", 
+                        title: "京都站取車 (ORIX)", 
+                        desc: "京都站八條口店 (Kyoto Station Hachijoguchi)", 
+                        type: "car", 
+                        icon: "fa-car", 
+                        link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-a-car+Kyoto+Station+Hachijoguchi" 
+                    },
+                    { 
+                        time: "10:30", 
+                        title: "抵達雄琴溫泉", 
+                        desc: "行李先寄放「琵琶湖綠水亭」", 
+                        type: "hotel", 
+                        icon: "fa-luggage-cart", 
+                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" 
+                    },
+                    { 
+                        time: "11:00", 
+                        title: "琵琶湖 Valley 滑雪", 
+                        desc: "導航至 '琵琶湖 Valley 纜車口' (Ropeway)", 
+                        type: "snow", 
+                        icon: "fa-snowflake",
+                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway"
+                    },
                     { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡", type: "food", icon: "fa-hamburger" },
                     { time: "16:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景 + 懷石料理", type: "hotel", icon: "fa-hot-tub" }
                 ]
@@ -113,8 +148,22 @@
                 area: "琵琶湖玩雪/觀光",
                 events: [
                     { time: "上午", title: "方案A: 繼續滑雪", desc: "上午再玩雪盆+初學練習", type: "snow", icon: "fa-skiing" },
-                    { time: "上午", title: "方案B: 琵琶湖 Terrace", desc: "純搭纜車看雲海美景，不滑雪", type: "spot", icon: "fa-mountain" },
-                    { time: "下午", title: "購物或觀光", desc: "三井 Outlet 竜王 或 近江神宮", type: "shop", icon: "fa-shopping-bag" },
+                    { 
+                        time: "上午", 
+                        title: "方案B: 琵琶湖 Terrace", 
+                        desc: "純搭纜車看雲海美景，不滑雪", 
+                        type: "spot", 
+                        icon: "fa-mountain",
+                        link: "https://www.google.com/maps/search/?api=1&query=Biwako+Terrace"
+                    },
+                    { 
+                        time: "下午", 
+                        title: "三井 Outlet 龍王", 
+                        desc: "關西最好買的 Outlet！", 
+                        type: "shop", 
+                        icon: "fa-shopping-bag",
+                        link: "https://www.google.com/maps/search/?api=1&query=Mitsui+Outlet+Park+Shiga+Ryuo"
+                    },
                     { time: "宿", title: "續住 綠水亭", desc: "享受最後一晚溫泉", type: "hotel", icon: "fa-bed" }
                 ]
             },
@@ -123,11 +172,25 @@
                 date: "2/17 (二)",
                 area: "移動 🚗 大阪",
                 events: [
-                    { time: "09:30", title: "出發前往大阪", desc: "名神高速 → 阪神高速 (堺筋本町出口)", type: "car", icon: "fa-car-side" },
-                    { time: "11:30", title: "市區還車", desc: "ORIX 堺筋本町店還車", type: "transport", icon: "fa-check-circle" },
-                    { time: "12:30", title: "入住：KOKO HOTEL", desc: "Check-in 放行李", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=大阪KOKOHotel" },
-                    { time: "14:00", title: "大阪城公園", desc: "小孩放電跑跑", type: "spot", icon: "fa-tree" },
-                    { time: "晚餐", title: "黑門市場", desc: "美食巡禮", type: "food", icon: "fa-drumstick-bite" }
+                    { time: "09:30", title: "出發前往大阪", desc: "名神高速 → 阪神高速 (約 1.5 小時)", type: "car", icon: "fa-car-side" },
+                    { 
+                        time: "11:30", 
+                        title: "ORIX 本町還車", 
+                        desc: "導航至：ORIX Rent-a-car Hommachi (近堺筋本町)", 
+                        type: "transport", 
+                        icon: "fa-check-circle",
+                        link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-a-car+Honmachi+Ekimae"
+                    },
+                    { 
+                        time: "12:30", 
+                        title: "入住：KOKO HOTEL", 
+                        desc: "心齋橋分館 (Minamisenba)，從還車點走路就到", 
+                        type: "hotel", 
+                        icon: "fa-hotel", 
+                        link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" 
+                    },
+                    { time: "14:00", title: "大阪城公園", desc: "小孩放電跑跑", type: "spot", icon: "fa-tree", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Castle+Park" },
+                    { time: "晚餐", title: "黑門市場", desc: "美食巡禮", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Market" }
                 ]
             },
             {
@@ -135,9 +198,9 @@
                 date: "2/18 (三)",
                 area: "天王寺親子遊",
                 events: [
-                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛", type: "spot", icon: "fa-hippo" },
-                    { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照", type: "spot", icon: "fa-cloud" },
-                    { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決", type: "shop", icon: "fa-shopping-cart" },
+                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
+                    { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
+                    { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Qs+Mall" },
                     { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed" }
                 ]
             },
@@ -146,10 +209,10 @@
                 date: "2/19 (四)",
                 area: "大阪港區一日遊",
                 events: [
-                    { time: "09:30", title: "海遊館", desc: "🐠 世界級水族館，必看鯨鯊", type: "spot", icon: "fa-fish" },
-                    { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景", type: "spot", icon: "fa-dharmachakra" },
-                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂", type: "spot", icon: "fa-cubes" },
-                    { time: "17:00", title: "聖瑪麗亞號", desc: "搭船看夕陽 + 港灣村晚餐", type: "spot", icon: "fa-ship" }
+                    { time: "09:30", title: "海遊館", desc: "🐠 世界級水族館，必看鯨鯊", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
+                    { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
+                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=LEGOLAND+Discovery+Center+Osaka" },
+                    { time: "17:00", title: "聖瑪麗亞號", desc: "搭船看夕陽 + 港灣村晚餐", type: "spot", icon: "fa-ship", link: "https://www.google.com/maps/search/?api=1&query=Santa+Maria+Cruise+Osaka" }
                 ]
             },
             {
@@ -157,14 +220,13 @@
                 date: "2/20 (五)",
                 area: "大阪 ✈️ 台北",
                 events: [
-                    { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買", type: "shop", icon: "fa-gift" },
+                    { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買", type: "shop", icon: "fa-gift", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Underground+Shopping+Center" },
                     { time: "11:30", title: "前往機場", desc: "南海電鐵 or 利木津巴士 (預留60分)", type: "transport", icon: "fa-bus" },
                     { time: "14:30", title: "飛往台北", desc: "KIX 14:30 → TPE 16:45", type: "flight", icon: "fa-plane-arrival" },
                     { time: "16:45", title: "抵達", desc: "甜蜜的家", type: "home", icon: "fa-home" }
                 ]
             }
         ];
-
         // ==========================================
         // 2. 程式邏輯 (負責把資料畫到畫面上)
         // ==========================================
@@ -264,4 +326,5 @@
         renderContent();
     </script>
 </body>
+
 </html>
