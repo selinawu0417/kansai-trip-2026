@@ -365,7 +365,7 @@
             contentArea.innerHTML = '';
             
             // 呼叫天氣 API (根據該日的座標)
-            const locationName = data.area.includes("京都") ? "京都" : (data.area.includes("大阪") ? "大阪" : (data.area.includes("琵琶湖") ? "琵琶湖" : "日本"));
+            const locationName = data.area.includes("京都") ? "京都" : (data.area.includes("大阪") ? "大阪" : (data.area.includes("琵琶湖") ? "琵琶湖" : "琵琶湖"));
             fetchWeather(data.lat, data.lon, locationName);
 
             const headerHtml = `
@@ -506,3 +506,4 @@
     </script>
 </body>
 </html>
+
