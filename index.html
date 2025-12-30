@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026過年 日本旅遊</title>
+    <title>2026日本旅遊</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -30,10 +30,14 @@
             display: block;
         }
 
-        /* 智慧標籤樣式 (高亮重點) */
+        /* 智慧標籤樣式 */
         .tag-food { color: #d97706; font-weight: bold; background-color: #fffbeb; padding: 0 4px; border-radius: 4px; }
         .tag-buy { color: #be185d; font-weight: bold; background-color: #fce7f3; padding: 0 4px; border-radius: 4px; }
         .tag-tip { color: #059669; font-weight: bold; }
+        
+        /* 天氣載入動畫 */
+        .weather-loading { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
 <body class="pb-24 select-none">
@@ -45,9 +49,11 @@
                     <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 大阪</h1>
                     <p class="text-blue-100 text-sm mt-1 font-medium">2026/02/13 — 02/20 (8天)</p>
                 </div>
-                <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[3.5rem]">
-                    <div class="text-xs text-blue-100">預報</div>
-                    <div class="text-lg font-bold"><i class="fas fa-snowflake"></i> 5°</div>
+                <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[4.5rem]">
+                    <div class="text-xs text-blue-100 mb-1" id="weather-location">載入中</div>
+                    <div class="text-xl font-bold flex items-center justify-center gap-1" id="weather-display">
+                        <i class="fas fa-circle-notch fa-spin text-sm"></i>
+                    </div>
                 </div>
             </div>
 
@@ -79,14 +85,14 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (已加入智慧標籤 & 天氣)
+        // 1. 行程資料 (內容維持不變，僅加入 lat/lon 座標供天氣使用)
         // ==========================================
         const tripData = [
             {
                 day: "D1",
                 date: "2/13 (五)",
                 area: "台北 ✈️ 京都",
-                weather: "☁️ 10°C",
+                lat: 35.0116, lon: 135.7681, // 京都
                 events: [
                     { time: "14:20", title: "飛往大阪關西", desc: "桃園 TPE → KIX (預計 17:50 抵達)，機上建議先填好入境卡。", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)，<span class='tag-tip'>記得用 QR Code 取票</span>。", type: "transport", icon: "fa-train" },
@@ -98,7 +104,7 @@
                 day: "D2",
                 date: "2/14 (六)",
                 area: "京都文化探索",
-                weather: "☀️ 9°C",
+                lat: 35.0116, lon: 135.7681, // 京都
                 events: [
                     { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議 <span class='tag-tip'>09:00 前抵達</span> 避開人潮拍照。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
                     { time: "12:00", title: "錦市場午餐", desc: "推薦：<span class='tag-food'>鮮魚木村</span>、<span class='tag-food'>抹茶甜點</span>、豆乳甜甜圈。", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
@@ -111,7 +117,7 @@
                 day: "D3",
                 date: "2/15 (日)",
                 area: "自駕 🚗 雄琴溫泉",
-                weather: "❄️ 3°C (雪)",
+                lat: 35.0533, lon: 135.9138, // 琵琶湖(大津)
                 events: [
                     { time: "09:00", title: "京都站取車 (ORIX)", desc: "地點：京都站八條口店。<span class='tag-tip'>務必攜帶：台灣駕照 + 日文譯本</span>。", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Kyoto+Station+Hachijo+Exit" },
                     { time: "10:30", title: "抵達雄琴溫泉", desc: "行李先寄放「琵琶湖綠水亭」。", type: "hotel", icon: "fa-luggage-cart", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" },
@@ -124,7 +130,7 @@
                 day: "D4",
                 date: "2/16 (一)",
                 area: "琵琶湖玩雪/觀光",
-                weather: "☁️ 4°C",
+                lat: 35.0533, lon: 135.9138, // 琵琶湖(大津)
                 events: [
                     { time: "上午", title: "方案A: 繼續滑雪", desc: "上午再玩雪盆+初學練習。", type: "snow", icon: "fa-skiing" },
                     { time: "上午", title: "方案B: 琵琶湖 Terrace", desc: "純搭纜車看雲海美景，<span class='tag-tip'>山頂風大請保暖</span>。", type: "spot", icon: "fa-mountain", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Terrace" },
@@ -136,7 +142,7 @@
                 day: "D5",
                 date: "2/17 (二)",
                 area: "移動 🚗 大阪",
-                weather: "🌤️ 12°C",
+                lat: 34.6937, lon: 135.5023, // 大阪
                 events: [
                     { time: "09:30", title: "出發前往大阪", desc: "名神高速 → 阪神高速 (約 1.5 小時)。", type: "car", icon: "fa-car-side" },
                     { time: "11:30", title: "ORIX 本町還車", desc: "導航至：ORIX Rent-a-car Hommachi。<span class='tag-tip'>還車前記得加滿油</span>。", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Honmachi" },
@@ -149,7 +155,7 @@
                 day: "D6",
                 date: "2/18 (三)",
                 area: "天王寺親子遊",
-                weather: "☀️ 13°C",
+                lat: 34.6937, lon: 135.5023, // 大阪
                 events: [
                     { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛，可租借推車。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
                     { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照，<span class='tag-tip'>傍晚夕陽最美</span>。", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
@@ -161,7 +167,7 @@
                 day: "D7",
                 date: "2/19 (四)",
                 area: "大阪港區一日遊",
-                weather: "☁️ 12°C",
+                lat: 34.6937, lon: 135.5023, // 大阪
                 events: [
                     { time: "09:30", title: "海遊館", desc: "世界級水族館，必看 <span class='tag-food'>鯨鯊</span> 餵食秀。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
                     { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景，有透明車廂可選。", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
@@ -173,7 +179,7 @@
                 day: "D8",
                 date: "2/20 (五)",
                 area: "大阪 ✈️ 台北",
-                weather: "🌤️ 13°C",
+                lat: 34.6937, lon: 135.5023, // 大阪
                 events: [
                     { time: "上午", title: "最後衝刺", desc: "梅田地下街 / 大阪站採買伴手禮 (<span class='tag-buy'>Baton d'or</span>, <span class='tag-buy'>Echiré</span>)。", type: "shop", icon: "fa-gift", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Underground+Shopping+Street" },
                     { time: "11:30", title: "前往機場", desc: "南海電鐵 or 利木津巴士 (預留 60 分鐘車程)。", type: "transport", icon: "fa-bus" },
@@ -184,7 +190,7 @@
         ];
 
         // ==========================================
-        // 2. 檢查表資料
+        // 2. 檢查表資料 (內容維持您提供的原始版本不變)
         // ==========================================
         const checklistData = [
             {
@@ -197,11 +203,11 @@
                     "電子機票存手機",
                     "日幣現金",
                     "海外高回饋信用卡",
-					"有預先刷機票或住宿的信用卡",
+                    "有預先刷機票或住宿的信用卡",
                     "實體網卡 / eSIM / 漫遊開通",
                     "換卡針 (如用實體網卡)",
                     "iPhone 西瓜卡 (Suica) 綁定",
-					"日本入境預填文件印出",
+                    "日本入境預填文件印出",
                     "預約資料影本 (機票/住宿/租車/護照)"
                 ]
             },
@@ -226,7 +232,7 @@
                 category: "電子 & 雜物",
                 items: [
                     "行動電源 (要放在隨身行李)",
-					"手機充電器",
+                    "手機充電器",
                     "插座 / 充電線",
                     "轉接頭 (日本雙孔扁插，台灣通用)", 
                     "拍照腳架 / 自拍棒",
@@ -243,7 +249,7 @@
                     "眼鏡",
                     "衛生紙 / 濕紙巾",
                     "衛生棉",
-					"備用口罩",
+                    "備用口罩",
                     "水壺 / 保溫瓶",
                     "耳塞 / 眼罩",                    
                     "手機掛繩",   
@@ -253,7 +259,7 @@
         ];
 
         // ==========================================
-        // 3. 資訊中心資料 (新功能：整合航班/住宿/緊急/指南)
+        // 3. 資訊中心資料 (加入實用連結，其餘維持不變)
         // ==========================================
         const infoData = {
             flights: [
@@ -264,6 +270,11 @@
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
                 { name: "琵琶湖綠水亭", address: "滋賀縣大津市雄琴6-1-6", map: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" },
                 { name: "KOKO HOTEL 大阪心齋橋", address: "大阪市中央區南船場3-3-17", map: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" }
+            ],
+            links: [
+                { title: "琵琶湖 Valley 即時影像", desc: "出發前必看！確認山上雪況與天氣。", icon: "fa-video", color: "text-red-500", url: "https://www.biwako-valley.com/livecamera/" },
+                { title: "JR 西日本運行情報", desc: "即時查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
+                { title: "即時匯率換算", desc: "Google 財經日幣/台幣即時匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
             ],
             emergency: [
                 { title: "警察局", tel: "110" },
@@ -284,26 +295,56 @@
         };
 
         // ==========================================
-        // 4. 程式邏輯
+        // 4. 程式邏輯 (新增 API 與連結顯示)
         // ==========================================
         const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
-        let activeIndex = 0; // 0-7:行程, 99:清單, 100:資訊
+        const weatherLocation = document.getElementById('weather-location');
+        const weatherDisplay = document.getElementById('weather-display');
+        let activeIndex = 0;
+
+        // 取得真實天氣 (使用 Open-Meteo 免費 API)
+        async function fetchWeather(lat, lon, areaName) {
+            weatherLocation.innerText = areaName;
+            weatherDisplay.innerHTML = '<i class="fas fa-circle-notch fa-spin text-sm"></i>';
+            
+            try {
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const data = await response.json();
+                
+                const temp = Math.round(data.current_weather.temperature);
+                const code = data.current_weather.weathercode;
+                
+                // 天氣代碼轉換圖示
+                let icon = "fa-sun";
+                if (code > 3) icon = "fa-cloud";
+                if (code >= 51) icon = "fa-cloud-rain";
+                if (code >= 71) icon = "fa-snowflake";
+                
+                // 更新介面
+                weatherDisplay.innerHTML = `<i class="fas ${icon}"></i> ${temp}°`;
+            } catch (error) {
+                weatherDisplay.innerText = "N/A";
+            }
+        }
 
         function renderTabs() {
             tabsContainer.innerHTML = '';
             
-            // 1. 行程 D1-D8
             tripData.forEach((item, index) => {
                 const isActive = index === activeIndex;
                 const btn = document.createElement('div');
                 btn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isActive ? 'bg-blue-600 text-white shadow-lg scale-105 ring-2 ring-blue-300' : 'bg-white text-gray-500 shadow-sm'}`;
                 btn.innerHTML = `<span class="text-[10px] font-medium opacity-80">${item.date.split(' ')[0]}</span><span class="text-xl font-bold">${item.day}</span>`;
-                btn.onclick = () => { activeIndex = index; renderTabs(); renderContent(); btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); };
+                btn.onclick = () => { 
+                    activeIndex = index; 
+                    renderTabs(); 
+                    renderContent(); 
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); 
+                };
                 tabsContainer.appendChild(btn);
             });
 
-            // 2. 資訊按鈕 (新)
             const infoBtn = document.createElement('div');
             const isInfoActive = activeIndex === 100;
             infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isInfoActive ? 'bg-emerald-500 text-white shadow-lg scale-105 ring-2 ring-emerald-300' : 'bg-white text-gray-500 shadow-sm'}`;
@@ -311,7 +352,6 @@
             infoBtn.onclick = () => { activeIndex = 100; renderTabs(); renderInfo(); infoBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); };
             tabsContainer.appendChild(infoBtn);
 
-            // 3. 清單按鈕
             const listBtn = document.createElement('div');
             const isListActive = activeIndex === 99;
             listBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isListActive ? 'bg-orange-500 text-white shadow-lg scale-105 ring-2 ring-orange-300' : 'bg-white text-gray-500 shadow-sm'}`;
@@ -323,26 +363,24 @@
         function renderContent() {
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
+            
+            // 呼叫天氣 API (根據該日的座標)
+            const locationName = data.area.includes("京都") ? "京都" : (data.area.includes("大阪") ? "大阪" : (data.area.includes("琵琶湖") ? "琵琶湖" : "日本"));
+            fetchWeather(data.lat, data.lon, locationName);
 
-            // Header with Weather
             const headerHtml = `
                 <div class="flex justify-between items-end mb-4 px-1 animate-card">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800">${data.date}</h2>
                         <div class="flex items-center text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1.5"></i> ${data.area}</div>
                     </div>
-                    <div class="text-right">
-                        <div class="text-xl font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">${data.weather}</div>
-                    </div>
                 </div>
             `;
             contentArea.insertAdjacentHTML('beforeend', headerHtml);
 
-            // Cards
             data.events.forEach((event, idx) => {
                 let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
                 
-                // 分類設計
                 if(event.type === 'flight') style = { bg: "bg-gradient-to-r from-sky-500 to-blue-600 text-white", border: "border-none", text: "text-white", icon: "text-white/80" };
                 else if(event.type === 'snow') style = { bg: "bg-gradient-to-r from-cyan-400 to-sky-400 text-white", border: "border-none", text: "text-white", icon: "text-white/90" };
                 else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
@@ -378,6 +416,9 @@
 
         function renderChecklist() {
             contentArea.innerHTML = '';
+            weatherLocation.innerText = "清單";
+            weatherDisplay.innerHTML = '<i class="fas fa-check"></i>';
+
             const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
             
             contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">行李檢查表</h2><p class="text-gray-500 text-sm mt-1">自動儲存進度</p></div>');
@@ -400,7 +441,21 @@
 
         function renderInfo() {
             contentArea.innerHTML = '';
-            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">旅行資訊中心</h2><p class="text-gray-500 text-sm mt-1">航班、住宿與緊急聯絡</p></div>');
+            weatherLocation.innerText = "資訊";
+            weatherDisplay.innerHTML = '<i class="fas fa-info"></i>';
+            
+            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">旅行資訊中心</h2><p class="text-gray-500 text-sm mt-1">航班、住宿與實用工具</p></div>');
+
+            // 0. 實用連結 (新功能：包含您提到的建議網站)
+            let linksHtml = infoData.links.map(l => `
+                <a href="${l.url}" target="_blank" class="flex items-center gap-3 border-b last:border-0 border-gray-100 py-3 group">
+                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition"><i class="fas ${l.icon} ${l.color} text-lg"></i></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-800 flex items-center gap-2">${l.title} <i class="fas fa-external-link-alt text-xs text-gray-300"></i></div>
+                        <div class="text-xs text-gray-500 mt-0.5">${l.desc}</div>
+                    </div>
+                </a>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-link"></i> 實用工具</h3>${linksHtml}</div>`);
 
             // 1. 航班
             let flightHtml = infoData.flights.map(f => `
@@ -408,7 +463,7 @@
                     <div><div class="text-xs text-gray-400">${f.leg}</div><div class="font-bold text-gray-800">${f.code}</div></div>
                     <div class="text-right"><div class="text-xs text-gray-400">${f.route}</div><div class="font-bold text-blue-600">${f.time}</div></div>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flightHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 100ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flightHtml}</div>`);
 
             // 2. 住宿
             let hotelHtml = infoData.hotels.map(h => `
@@ -417,7 +472,7 @@
                     <div class="text-xs text-gray-500 mt-1">${h.address}</div>
                     <a href="${h.map}" target="_blank" class="inline-block mt-2 text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded border border-indigo-200">開啟地圖</a>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 100ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-bed"></i> 住宿列表</h3>${hotelHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 200ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-bed"></i> 住宿列表</h3>${hotelHtml}</div>`);
 
             // 3. 緊急
             let emerHtml = infoData.emergency.map(e => `
@@ -425,8 +480,8 @@
                     <span class="text-gray-700">${e.title}</span>
                     <a href="tel:${e.tel}" class="font-bold text-red-500 bg-red-50 px-2 py-1 rounded"><i class="fas fa-phone-alt"></i> ${e.tel}</a>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 200ms"><h3 class="font-bold text-lg text-red-500 mb-2"><i class="fas fa-exclamation-triangle"></i> 緊急聯絡</h3>${emerHtml}</div>`);
-
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 300ms"><h3 class="font-bold text-lg text-red-500 mb-2"><i class="fas fa-exclamation-triangle"></i> 緊急聯絡</h3>${emerHtml}</div>`);
+            
             // 4. 指南
             let guideHtml = infoData.guides.map(g => `
                 <div class="mt-4 first:mt-0 p-3 bg-gray-50 rounded-lg">
@@ -434,8 +489,8 @@
                     <div class="text-sm text-gray-600 leading-relaxed">${g.content}</div>
                     ${g.link ? `<a href="${g.link}" target="_blank" class="inline-block mt-2 text-xs text-blue-600 underline">點此前往網站</a>` : ''}
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 300ms"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-book"></i> 必讀指南</h3>${guideHtml}</div>`);
-            
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 400ms"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-book"></i> 必讀指南</h3>${guideHtml}</div>`);
+
             contentArea.insertAdjacentHTML('beforeend', '<div class="h-8"></div>');
         }
 
@@ -451,5 +506,3 @@
     </script>
 </body>
 </html>
-
-
