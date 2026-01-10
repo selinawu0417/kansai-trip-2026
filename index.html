@@ -55,10 +55,10 @@
             </div>
 
             <div class="grid grid-cols-2 gap-3 mt-6">
-                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/20 text-white py-2.5 rounded-xl transition active:scale-95">
-                    <i class="fas fa-language"></i> <span>翻譯神器</span>
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-400 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-500">
+                    <i class="fas fa-language"></i> <span>Google翻譯</span>
                 </a>
-                <a href="https://www.google.com/maps/d/u/0/edit?mid=1RhaNPO47PFwrJeCtCYdUwIZQnbpAc3w&ll=34.8172408728509%2C135.57010455&z=9" target="_blank" class="flex items-center justify-center gap-2 bg-white text-blue-600 py-2.5 rounded-xl shadow-lg font-bold transition active:scale-95">
+                <a href="https://www.google.com/maps/d/u/0/edit?mid=1RhaNPO47PFwrJeCtCYdUwIZQnbpAc3w&ll=34.8172408728509%2C135.57010455&z=9" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-400 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-500">
                     <i class="fas fa-map-marked-alt"></i> <span>行程地圖</span>
                 </a>
             </div>
@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (TOYOTA 租車版 + 住宿導航補齊)
+        // 1. 行程資料 (TOYOTA 租車版 + D8修正)
         // ==========================================
         const tripData = [
             {
@@ -192,7 +192,8 @@
                 area: "大阪 ✈️ 台北",
                 lat: 34.4320, lon: 135.2304, 
                 events: [
-                    { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "hotel", icon: "fa-coffee", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" },
+                    // 修改：2/20 早上休息，移除導航，使用白底
+                    { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "rest", icon: "fa-coffee" },
                     { time: "10:30", title: "前往機場", desc: "提早出發！南海電鐵 or 利木津巴士 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
                     { time: "14:30", title: "飛往台北", desc: "關西機場第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
                     { time: "16:45", title: "抵達", desc: "甜蜜的家。", type: "home", icon: "fa-home" }
@@ -331,11 +332,12 @@
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
             
+            // 修正天氣判斷邏輯：確保 D5 奈良、D6 大阪 正確顯示
             let locationName = "日本";
-            if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
-            else if (data.area.includes("大阪") || data.area.includes("梅田")) locationName = "大阪";
+            if (data.area.includes("奈良")) locationName = "奈良"; // 優先判斷奈良
+            else if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
+            else if (data.area.includes("大阪") || data.area.includes("梅田") || data.area.includes("天王寺")) locationName = "大阪"; // 補上天王寺
             else if (data.area.includes("琵琶湖")) locationName = "琵琶湖";
-            else if (data.area.includes("奈良")) locationName = "奈良";
             
             fetchWeather(data.lat, data.lon, locationName);
 
@@ -351,12 +353,15 @@
 
             data.events.forEach((event, idx) => {
                 let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
+                
+                // 增加 rest 類型 (白底無邊框)
                 if(event.type === 'flight') style = { bg: "bg-gradient-to-r from-sky-500 to-blue-600 text-white", border: "border-none", text: "text-white", icon: "text-white/80" };
                 else if(event.type === 'snow') style = { bg: "bg-gradient-to-r from-cyan-400 to-sky-400 text-white", border: "border-none", text: "text-white", icon: "text-white/90" };
                 else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
                 else if(event.type === 'food') style = { bg: "bg-orange-50", border: "border-orange-400", text: "text-gray-800", icon: "text-orange-500" };
                 else if(event.type === 'spot') style = { bg: "bg-white", border: "border-green-500", text: "text-gray-800", icon: "text-green-500" };
                 else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
+                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" }; // 白底
 
                 const isDark = (event.type === 'flight' || event.type === 'snow');
                 const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-blue-600 text-white shadow-md hover:bg-blue-700';
