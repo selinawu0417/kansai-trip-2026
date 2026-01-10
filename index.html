@@ -55,10 +55,10 @@
             </div>
 
             <div class="grid grid-cols-2 gap-3 mt-6">
-                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-400 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-500">
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
                     <i class="fas fa-language"></i> <span>Google翻譯</span>
                 </a>
-                <a href="https://www.google.com/maps/d/u/0/edit?mid=1RhaNPO47PFwrJeCtCYdUwIZQnbpAc3w&ll=34.8172408728509%2C135.57010455&z=9" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-400 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-500">
+                <a href="https://www.google.com/maps/d/u/0/edit?mid=1RhaNPO47PFwrJeCtCYdUwIZQnbpAc3w&ll=34.8172408728509%2C135.57010455&z=9" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
                     <i class="fas fa-map-marked-alt"></i> <span>行程地圖</span>
                 </a>
             </div>
@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (TOYOTA 租車版 + D8修正)
+        // 1. 行程資料 (TOYOTA 租車版)
         // ==========================================
         const tripData = [
             {
@@ -192,7 +192,7 @@
                 area: "大阪 ✈️ 台北",
                 lat: 34.4320, lon: 135.2304, 
                 events: [
-                    // 修改：2/20 早上休息，移除導航，使用白底
+                    // 白底 rest 類型
                     { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "rest", icon: "fa-coffee" },
                     { time: "10:30", title: "前往機場", desc: "提早出發！南海電鐵 or 利木津巴士 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
                     { time: "14:30", title: "飛往台北", desc: "關西機場第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
@@ -332,11 +332,11 @@
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
             
-            // 修正天氣判斷邏輯：確保 D5 奈良、D6 大阪 正確顯示
+            // 修正天氣邏輯：確保 D5 奈良、D6 大阪 正確顯示
             let locationName = "日本";
-            if (data.area.includes("奈良")) locationName = "奈良"; // 優先判斷奈良
+            if (data.area.includes("奈良")) locationName = "奈良"; 
             else if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
-            else if (data.area.includes("大阪") || data.area.includes("梅田") || data.area.includes("天王寺")) locationName = "大阪"; // 補上天王寺
+            else if (data.area.includes("大阪") || data.area.includes("梅田") || data.area.includes("天王寺") || data.area.includes("海遊館")) locationName = "大阪";
             else if (data.area.includes("琵琶湖")) locationName = "琵琶湖";
             
             fetchWeather(data.lat, data.lon, locationName);
@@ -363,8 +363,9 @@
                 else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
                 else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" }; // 白底
 
+                // 修改：導航按鈕改為不搶眼的深灰底白字 (bg-gray-600 text-white)，尺寸縮小
                 const isDark = (event.type === 'flight' || event.type === 'snow');
-                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-blue-600 text-white shadow-md hover:bg-blue-700';
+                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-600 text-white shadow-sm hover:bg-gray-700';
 
                 const card = document.createElement('div');
                 card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start mb-4`;
@@ -378,7 +379,7 @@
                     <div class="flex-1 min-w-0">
                         <h3 class="${style.text} font-bold text-lg leading-tight truncate">${event.title}</h3>
                         <p class="${isDark?'text-white/90':'text-gray-500'} text-sm mt-1 leading-relaxed">${event.desc}</p>
-                        ${event.link ? `<a href="${event.link}" target="_blank" class="inline-flex items-center mt-3 text-xs font-bold px-3 py-1.5 rounded-full ${btnClass} transition"><i class="fas fa-location-arrow mr-1.5"></i> 導航去這裡</a>` : ''}
+                        ${event.link ? `<a href="${event.link}" target="_blank" class="inline-flex items-center mt-3 text-[10px] px-2.5 py-1 rounded-full ${btnClass} transition"><i class="fas fa-location-arrow mr-1.5"></i> 導航去這裡</a>` : ''}
                     </div>
                 `;
                 contentArea.appendChild(card);
