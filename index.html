@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (已更新 TOYOTA 租車資訊)
+        // 1. 行程資料 (TOYOTA 租車版)
         // ==========================================
         const tripData = [
             {
@@ -126,8 +126,8 @@
                         link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" 
                     },
                     { time: "12:30", title: "金閣寺 (鹿苑寺)", desc: "參觀金碧輝煌的金閣寺，湖中倒影必拍！", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
-                    { time: "16:00", title: "琵琶湖看風景", desc: "開車前往琵琶湖，湖邊散步看風景 (本日不滑雪)。", type: "spot", icon: "fa-water" },
-                    { time: "17:30", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用 <span class='tag-food'>懷石料理</span>。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
+                    { time: "15:00", title: "琵琶湖簡單遊玩", desc: "開車前往琵琶湖，湖邊散步看風景 (本日不滑雪)。", type: "spot", icon: "fa-water" },
+                    { time: "17:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用 <span class='tag-food'>懷石料理</span>。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
@@ -234,7 +234,7 @@
         ];
 
         // ==========================================
-        // 3. 資訊中心資料
+        // 3. 資訊中心資料 (移除 GitHub Tools)
         // ==========================================
         const infoData = {
             flights: [
@@ -251,7 +251,6 @@
                 { title: "JR 西日本運行情報", desc: "即時查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
                 { title: "即時匯率換算", desc: "Google 財經日幣/台幣即時匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
             ],
-            
             emergency: [
                 { title: "警察局", tel: "110" },
                 { title: "火警/救護車", tel: "119" },
@@ -332,7 +331,6 @@
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
             
-            // 判斷地點名稱 (顯示在右上角)
             let locationName = "日本";
             if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
             else if (data.area.includes("大阪") || data.area.includes("梅田")) locationName = "大阪";
@@ -419,21 +417,12 @@
                 </a>`).join('');
             contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-link"></i> 實用工具</h3>${linksHtml}</div>`);
 
-            let ghHtml = infoData.githubTools.map(g => `
-                <a href="${g.url}" target="_blank" class="flex items-center gap-3 border-b last:border-0 border-gray-100 py-3 group">
-                     <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition"><i class="fab fa-github ${g.color} text-lg"></i></div>
-                    <div class="flex-1">
-                        <div class="font-bold text-gray-800 flex items-center gap-2">${g.title} <i class="fas fa-external-link-alt text-xs text-gray-300"></i></div>
-                        <div class="text-xs text-gray-500 mt-0.5">${g.desc}</div>
-                    </div>
-                </a>`).join('');
- 
             let flightHtml = infoData.flights.map(f => `
                 <div class="flex justify-between items-center border-b last:border-0 border-gray-100 py-2">
                     <div><div class="text-xs text-gray-400">${f.leg}</div><div class="font-bold text-gray-800">${f.code}</div></div>
                     <div class="text-right"><div class="text-xs text-gray-400">${f.route}</div><div class="font-bold text-blue-600">${f.time}</div></div>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 300ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flightHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 100ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flightHtml}</div>`);
 
             let hotelHtml = infoData.hotels.map(h => `
                 <div class="border-b last:border-0 border-gray-100 py-3">
@@ -441,14 +430,14 @@
                     <div class="text-xs text-gray-500 mt-1">${h.address}</div>
                     <a href="${h.map}" target="_blank" class="inline-block mt-2 text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded border border-indigo-200">開啟地圖</a>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 400ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-bed"></i> 住宿列表</h3>${hotelHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 200ms"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-bed"></i> 住宿列表</h3>${hotelHtml}</div>`);
 
             let emerHtml = infoData.emergency.map(e => `
                 <div class="flex justify-between items-center border-b last:border-0 border-gray-100 py-2">
                     <span class="text-gray-700">${e.title}</span>
                     <a href="tel:${e.tel}" class="font-bold text-red-500 bg-red-50 px-2 py-1 rounded"><i class="fas fa-phone-alt"></i> ${e.tel}</a>
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 500ms"><h3 class="font-bold text-lg text-red-500 mb-2"><i class="fas fa-exclamation-triangle"></i> 緊急聯絡</h3>${emerHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 300ms"><h3 class="font-bold text-lg text-red-500 mb-2"><i class="fas fa-exclamation-triangle"></i> 緊急聯絡</h3>${emerHtml}</div>`);
             
             let guideHtml = infoData.guides.map(g => `
                 <div class="mt-4 first:mt-0 p-3 bg-gray-50 rounded-lg">
@@ -456,7 +445,7 @@
                     <div class="text-sm text-gray-600 leading-relaxed">${g.content}</div>
                     ${g.link ? `<a href="${g.link}" target="_blank" class="inline-block mt-2 text-xs text-blue-600 underline">點此前往網站</a>` : ''}
                 </div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 600ms"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-book"></i> 必讀指南</h3>${guideHtml}</div>`);
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 400ms"><h3 class="font-bold text-lg text-emerald-600 mb-2"><i class="fas fa-book"></i> 必讀指南</h3>${guideHtml}</div>`);
 
             contentArea.insertAdjacentHTML('beforeend', '<div class="h-8"></div>');
         }
