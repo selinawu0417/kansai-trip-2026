@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (已更新 2/15, 16, 17, 19, 20 行程)
+        // 1. 行程資料 (已更新 TOYOTA 租車資訊)
         // ==========================================
         const tripData = [
             {
@@ -114,10 +114,17 @@
                 day: "D3",
                 date: "2/15 (日)",
                 area: "金閣寺 🚗 琵琶湖",
-                lat: 35.0394, lon: 135.7292, // 座標改為金閣寺周邊
+                lat: 35.0394, lon: 135.7292, 
                 events: [
                     { time: "上午", title: "飯店休息", desc: "悠閒享用早餐，整理行李，稍作休息。", type: "hotel", icon: "fa-coffee" },
-                    { time: "11:00", title: "京都站取車 (ORIX)", desc: "前往八條口店取車。<span class='tag-tip'>備妥：台灣駕照 + 日文譯本</span>。", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Kyoto+Station+Hachijo+Exit" },
+                    { 
+                        time: "11:00", 
+                        title: "京都站取車 (TOYOTA)", 
+                        desc: "店鋪：京都站新幹線口店。<br>地址：京都市南区東九条上殿田町31-1<br><span class='tag-tip'>車型：SIENTA Hybrid (W1)</span>", 
+                        type: "car", 
+                        icon: "fa-car", 
+                        link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" 
+                    },
                     { time: "12:30", title: "金閣寺 (鹿苑寺)", desc: "參觀金碧輝煌的金閣寺，湖中倒影必拍！", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
                     { time: "15:00", title: "琵琶湖簡單遊玩", desc: "開車前往琵琶湖，湖邊散步看風景 (本日不滑雪)。", type: "spot", icon: "fa-water" },
                     { time: "17:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用 <span class='tag-food'>懷石料理</span>。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
@@ -127,7 +134,7 @@
                 day: "D4",
                 date: "2/16 (一)",
                 area: "琵琶湖滑雪趣",
-                lat: 35.0533, lon: 135.9138, // 琵琶湖
+                lat: 35.0533, lon: 135.9138, 
                 events: [
                     { time: "09:30", title: "琵琶湖 Valley 滑雪", desc: "搭纜車上山，全日滑雪/玩雪盆！<span class='tag-tip'>記得戴防水手套</span>。", type: "snow", icon: "fa-snowflake", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway+Station" },
                     { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡，欣賞琵琶湖絕景。", type: "food", icon: "fa-hamburger" },
@@ -138,12 +145,19 @@
                 day: "D5",
                 date: "2/17 (二)",
                 area: "奈良小鹿 🚗 大阪",
-                lat: 34.6851, lon: 135.8048, // 座標改為奈良
+                lat: 34.6851, lon: 135.8048, 
                 events: [
                     { time: "09:00", title: "自駕前往奈良", desc: "出發前往古都奈良 (車程約 1 小時)。", type: "car", icon: "fa-car-side" },
-                    { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸，參觀大佛。<span class='tag-tip'>小心鹿會咬紙！</span>", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
+                    { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸，參觀大佛。", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
                     { time: "16:00", title: "前往大阪", desc: "開車前往大阪市區。", type: "car", icon: "fa-road" },
-                    { time: "19:00", title: "ORIX 本町還車", desc: "導航至：ORIX Rent-a-car Hommachi。<span class='tag-tip'>還車前記得加滿油</span>。", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=ORIX+Rent-A-Car+Honmachi" },
+                    { 
+                        time: "19:00", 
+                        title: "難波還車 (TOYOTA)", 
+                        desc: "店鋪：難波巴士中心店 (Namba Terminal)。<br>地址：大阪市浪速区元町1-4-8<br><span class='tag-tip'>記得加滿油再還車</span>", 
+                        type: "transport", 
+                        icon: "fa-check-circle", 
+                        link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Namba+Terminal+Shop" 
+                    },
                     { time: "19:30", title: "入住：KOKO HOTEL", desc: "心齋橋分館，Check-in 放置行李。", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" },
                     { time: "20:00", title: "黑門市場晚餐", desc: "享受大阪美食巡禮 (注意營業時間)。", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market" }
                 ]
@@ -176,7 +190,7 @@
                 day: "D8",
                 date: "2/20 (五)",
                 area: "大阪 ✈️ 台北",
-                lat: 34.4320, lon: 135.2304, // 關西機場
+                lat: 34.4320, lon: 135.2304, 
                 events: [
                     { time: "上午", title: "飯店休息", desc: "睡飽一點，悠閒整理戰利品，不安排行程。", type: "hotel", icon: "fa-coffee" },
                     { time: "10:30", title: "前往機場", desc: "提早出發！南海電鐵 or 利木津巴士 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
