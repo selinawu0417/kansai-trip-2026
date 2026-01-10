@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (TOYOTA 租車版)
+        // 1. 行程資料 (TOYOTA 租車版 + 住宿導航補齊)
         // ==========================================
         const tripData = [
             {
@@ -107,7 +107,7 @@
                     { time: "12:00", title: "錦市場午餐", desc: "推薦：<span class='tag-food'>鮮魚木村</span>、<span class='tag-food'>抹茶甜點</span>、豆乳甜甜圈。", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
                     { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂 → 三年坂。必買：<span class='tag-buy'>七味粉</span>、<span class='tag-buy'>清水燒</span>。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
                     { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步，運氣好可看到藝妓。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
-                    { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed" }
+                    { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" }
                 ]
             },
             {
@@ -138,14 +138,14 @@
                 events: [
                     { time: "09:30", title: "琵琶湖 Valley 滑雪", desc: "搭纜車上山，全日滑雪/玩雪盆！<span class='tag-tip'>記得戴防水手套</span>。", type: "snow", icon: "fa-snowflake", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway+Station" },
                     { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡，欣賞琵琶湖絕景。", type: "food", icon: "fa-hamburger" },
-                    { time: "16:00", title: "續住：綠水亭", desc: "滑雪完回飯店泡溫泉放鬆，消除疲勞。", type: "hotel", icon: "fa-bed" }
+                    { time: "16:00", title: "續住：綠水亭", desc: "滑雪完回飯店泡溫泉放鬆，消除疲勞。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
                 day: "D5",
                 date: "2/17 (二)",
                 area: "奈良小鹿 🚗 大阪",
-                lat: 34.6851, lon: 135.8048, 
+                lat: 34.6851, lon: 135.8048, // 奈良座標
                 events: [
                     { time: "09:00", title: "自駕前往奈良", desc: "出發前往古都奈良 (車程約 1 小時)。", type: "car", icon: "fa-car-side" },
                     { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸，參觀大佛。", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
@@ -166,12 +166,12 @@
                 day: "D6",
                 date: "2/18 (三)",
                 area: "天王寺親子遊",
-                lat: 34.6937, lon: 135.5023, 
+                lat: 34.6937, lon: 135.5023, // 大阪座標
                 events: [
                     { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛，可租借推車。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
                     { time: "14:00", title: "HARUKAS 300", desc: "高空展望台拍照，<span class='tag-tip'>傍晚夕陽最美</span>。", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
                     { time: "16:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決 (有美食街)。", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Q's+Mall" },
-                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed" }
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" }
                 ]
             },
             {
@@ -192,7 +192,7 @@
                 area: "大阪 ✈️ 台北",
                 lat: 34.4320, lon: 135.2304, 
                 events: [
-                    { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "hotel", icon: "fa-coffee" },
+                    { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "hotel", icon: "fa-coffee", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" },
                     { time: "10:30", title: "前往機場", desc: "提早出發！南海電鐵 or 利木津巴士 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
                     { time: "14:30", title: "飛往台北", desc: "關西機場第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
                     { time: "16:45", title: "抵達", desc: "甜蜜的家。", type: "home", icon: "fa-home" }
@@ -207,7 +207,7 @@
             {
                 category: "必備證件 & 金錢",
                 items: [
-                    "護照 (有效期6個月以上)", "日文駕照譯本", "台灣駕照",
+                    "護照 (有效期6個月以上)", "日本入境預填文件印出", "日文駕照譯本", "台灣駕照",
                     "Visit Japan Web QR Code 截圖", "電子機票存手機", "日幣現金",
                     "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡 / eSIM / 漫遊開通", 
                     "換卡針 (如用實體網卡)", "iPhone 西瓜卡 (Suica) 綁定", "預約文件資料影本"
@@ -234,7 +234,7 @@
         ];
 
         // ==========================================
-        // 3. 資訊中心資料 (移除 GitHub Tools)
+        // 3. 資訊中心資料
         // ==========================================
         const infoData = {
             flights: [
