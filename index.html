@@ -91,7 +91,7 @@
                 area: "台北 ✈️ 京都",
                 lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "14:20", title: "飛往大阪關西", desc: "桃園 第二航廈 TPE → KIX  關西機場第一航廈（預計 17:50 抵達)，機上建議先填好入境卡。", type: "flight", icon: "fa-plane-departure" },
+                    { time: "14:20", title: "飛往大阪關西", desc: "桃園機場第二航廈 TPE → KIX  關西機場第一航廈（預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
                     { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
                     { time: "20:30", title: "晚餐：聚樂第", desc: "京都站前居酒屋，必點 <span class='tag-food'>關東煮</span> 與 <span class='tag-food'>串燒</span>。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/search/?api=1&query=Kyoto+Ekimae+Bar+Jurakudai" }
@@ -194,7 +194,7 @@
                 events: [
                     { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "hotel", icon: "fa-coffee" },
                     { time: "10:30", title: "前往機場", desc: "提早出發！南海電鐵 or 利木津巴士 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
-                    { time: "14:30", title: "飛往台北", desc: "關西機場 第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
+                    { time: "14:30", title: "飛往台北", desc: "關西機場第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
                     { time: "16:45", title: "抵達", desc: "甜蜜的家。", type: "home", icon: "fa-home" }
                 ]
             }
@@ -238,8 +238,8 @@
         // ==========================================
         const infoData = {
             flights: [
-                { leg: "去程", code: "CI172 / BR130", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回程", code: "CI173 / BR129", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去程 桃園機場第二航廈 TPE → KIX  關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
+                { leg: "回程 關西機場第ㄧ航廈 KIX → TPE  桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
