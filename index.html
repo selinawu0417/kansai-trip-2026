@@ -251,12 +251,7 @@
                 { title: "JR 西日本運行情報", desc: "即時查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
                 { title: "即時匯率換算", desc: "Google 財經日幣/台幣即時匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
             ],
-            githubTools: [
-                { title: "Network Ping Test", desc: "Python 網路測試工具", url: "https://github.com/selinawu0417/network_ping_test", color: "text-blue-500" },
-                { title: "Hex-Dec-ASCII Converter", desc: "進位制轉換工具", url: "https://github.com/selinawu0417/Hex-Dec-ASCII-Converter", color: "text-purple-500" },
-                { title: "VLAN Tagging Decoder", desc: "VLAN 封包解析", url: "https://github.com/selinawu0417/Vlan_Tagging_Decoder", color: "text-green-500" },
-                { title: "Automation Notes", desc: "自動化筆記", url: "https://github.com/selinawu0417/automation-notes", color: "text-yellow-500" }
-            ],
+            
             emergency: [
                 { title: "警察局", tel: "110" },
                 { title: "火警/救護車", tel: "119" },
@@ -432,8 +427,7 @@
                         <div class="text-xs text-gray-500 mt-0.5">${g.desc}</div>
                     </div>
                 </a>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card" style="animation-delay: 200ms"><h3 class="font-bold text-lg text-gray-800 mb-2"><i class="fab fa-github"></i> 我的自動化工具</h3>${ghHtml}</div>`);
-
+ 
             let flightHtml = infoData.flights.map(f => `
                 <div class="flex justify-between items-center border-b last:border-0 border-gray-100 py-2">
                     <div><div class="text-xs text-gray-400">${f.leg}</div><div class="font-bold text-gray-800">${f.code}</div></div>
