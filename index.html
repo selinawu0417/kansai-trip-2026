@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -44,7 +43,7 @@
         <div class="relative z-10">
             <div class="flex justify-between items-start">
                 <div>
-                    <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 奈良 大阪</h1>
+                    <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 大阪</h1>
                     <p class="text-blue-100 text-sm mt-1 font-medium">2026/02/13 — 02/20 (8天)</p>
                 </div>
                 <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[4.5rem]">
@@ -83,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (TOYOTA 租車版)
+        // 1. 行程資料 (更新餐廳推薦與D7住宿)
         // ==========================================
         const tripData = [
             {
@@ -106,8 +105,16 @@
                 events: [
                     { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議 <span class='tag-tip'>09:00 前抵達</span> 避開人潮拍照。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
                     { time: "12:00", title: "錦市場午餐", desc: "推薦：<span class='tag-food'>鮮魚木村</span>、<span class='tag-food'>抹茶甜點</span>、豆乳甜甜圈。", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
-                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂 → 三年坂。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
+                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂 → 三年坂。必買：<span class='tag-buy'>七味粉</span>、<span class='tag-buy'>清水燒</span>。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
                     { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步，有機會看到藝妓。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
+                    { 
+                        time: "19:00", 
+                        title: "清水/祇園晚餐", 
+                        desc: "推薦：<span class='tag-food'>奧丹清水</span> (百年湯豆腐) 或 <span class='tag-food'>名代豬排</span> (Katsukura)。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/d/6"
+                    },
                     { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" }
                 ]
             },
@@ -127,7 +134,15 @@
                         link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" 
                     },
                     { time: "12:30", title: "金閣寺 (鹿苑寺)", desc: "參觀金碧輝煌的金閣寺，湖中倒影必拍！", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
-                    { time: "15:00", title: "琵琶湖看風景", desc: "開車前往琵琶湖，湖邊散步看風景 (本日不滑雪)。", type: "spot", icon: "fa-water" },
+                    { 
+                        time: "13:30", 
+                        title: "金閣寺周邊午餐", 
+                        desc: "推薦：<span class='tag-food'>權太呂</span> (老字號蕎麥麵) 或 <span class='tag-food'>いただき</span> (人氣洋食)。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/d/7"
+                    },
+                    { time: "15:00", title: "琵琶湖簡單遊玩", desc: "開車前往琵琶湖，湖邊散步看風景 (本日不滑雪)。", type: "spot", icon: "fa-water" },
                     { time: "17:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用 <span class='tag-food'>懷石料理</span>。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
@@ -150,6 +165,14 @@
                 events: [
                     { time: "09:00", title: "自駕前往奈良", desc: "出發前往古都奈良 (車程約 1 小時)。", type: "car", icon: "fa-car-side" },
                     { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸，參觀大佛。", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
+                    { 
+                        time: "12:30", 
+                        title: "奈良必吃午餐", 
+                        desc: "推薦：<span class='tag-food'>志津香釜飯</span> (排隊名店) 或 <span class='tag-food'>麵鬪庵</span> (福袋烏龍麵)。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/d/8"
+                    },
                     { time: "16:00", title: "前往大阪", desc: "開車前往大阪市區。", type: "car", icon: "fa-road" },
                     { 
                         time: "19:00", 
@@ -184,7 +207,8 @@
                     { time: "09:30", title: "海遊館", desc: "世界級水族館，必看 <span class='tag-food'>鯨鯊</span> 餵食秀。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
                     { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景，有透明車廂可選。", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
                     { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂，適合雨備。", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=Legoland+Discovery+Center+Osaka" },
-                    { time: "17:30", title: "梅田逛街晚餐", desc: "前往大阪車站/梅田周邊，百貨林立好逛，享用晚餐。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" }
+                    { time: "17:30", title: "梅田逛街晚餐", desc: "前往大阪車站/梅田周邊，百貨林立好逛，享用晚餐。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" },
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" } // 補上 D7 續住
                 ]
             },
             {
@@ -209,9 +233,9 @@
             {
                 category: "必備證件 & 金錢",
                 items: [
-                    "護照 (有效期6個月以上)", "日文駕照譯本", "台灣駕照",
-                    "Visit Japan Web QR Code 截圖", "日幣現金",
-                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡/eSIM/漫遊開通", 
+                    "護照 (有效期6個月以上)", "日本入境預填文件印出", "日文駕照譯本", "台灣駕照",
+                    "Visit Japan Web QR Code 截圖", "電子機票存手機", "日幣現金",
+                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡 / eSIM / 漫遊開通", 
                     "換卡針 (如用實體網卡)", "iPhone 西瓜卡 (Suica) 綁定", "預約文件資料影本"
                 ]
             },
@@ -219,15 +243,15 @@
                 category: "冬季穿搭 (2月很冷!)",
                 items: [
                     "羽絨保暖外套", "發熱衣", "大人防寒衣物", "小孩防寒衣物", "毛帽 (遮耳)",
-                    "手套 (滑雪必備)", "保暖圍巾", "厚襪子", "暖暖包 (貼式/手握)",
+                    "手套 (滑雪必備)", "圍巾 / 脖圍", "厚襪子", "暖暖包 (貼式/手握)",
                     "雪鞋 (防水佳)", "好走的鞋", "一大兩小行李箱"
                 ]
             },
             {
                 category: "電子 & 雜物",
                 items: [
-                    "行動電源 (隨身)", "手機充電器", "插座/充電線", "轉接頭", "自拍棒/腳架",
-                    "環保購物袋", "折疊雨傘", "常備藥品", "盥洗用品", "保養品",
+                    "行動電源 (隨身)", "手機充電器", "插座 / 充電線", "轉接頭", "自拍棒/腳架",
+                    "環保購物袋", "雨傘 (摺疊)", "常備藥品", "盥洗用品", "保養品",
                     "小孩綁髮飾品", "免洗褲", "護唇膏", "塑膠袋", "隱形眼鏡",
                     "衛生紙/濕紙巾", "衛生棉", "備用口罩", "水壺", "耳塞",
                     "手機掛繩", "iPad (離線影片)"
@@ -240,8 +264,8 @@
         // ==========================================
         const infoData = {
             flights: [
-                { leg: "去：桃園機場第二航廈→關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回：關西機場第ㄧ航廈→桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去程 桃園機場第二航廈 TPE → KIX  關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
+                { leg: "回程 關西機場第ㄧ航廈 KIX → TPE  桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
@@ -333,7 +357,6 @@
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
             
-            // 修正天氣邏輯：確保 D5 奈良、D6 大阪 正確顯示
             let locationName = "日本";
             if (data.area.includes("奈良")) locationName = "奈良"; 
             else if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
@@ -355,18 +378,16 @@
             data.events.forEach((event, idx) => {
                 let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
                 
-                // 增加 rest 類型 (白底無邊框)
                 if(event.type === 'flight') style = { bg: "bg-gradient-to-r from-sky-500 to-blue-600 text-white", border: "border-none", text: "text-white", icon: "text-white/80" };
                 else if(event.type === 'snow') style = { bg: "bg-gradient-to-r from-cyan-400 to-sky-400 text-white", border: "border-none", text: "text-white", icon: "text-white/90" };
                 else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
                 else if(event.type === 'food') style = { bg: "bg-orange-50", border: "border-orange-400", text: "text-gray-800", icon: "text-orange-500" };
                 else if(event.type === 'spot') style = { bg: "bg-white", border: "border-green-500", text: "text-gray-800", icon: "text-green-500" };
                 else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
-                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" }; // 白底
+                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
 
-                // 修改：導航按鈕改為不搶眼的深灰底白字 (bg-gray-600 text-white)，尺寸縮小
                 const isDark = (event.type === 'flight' || event.type === 'snow');
-                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-600 text-white shadow-sm hover:bg-gray-700';
+                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-100 text-gray-600 hover:bg-gray-200';
 
                 const card = document.createElement('div');
                 card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start mb-4`;
@@ -469,4 +490,3 @@
     </script>
 </body>
 </html>
-
