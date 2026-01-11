@@ -43,7 +43,7 @@
         <div class="relative z-10">
             <div class="flex justify-between items-start">
                 <div>
-                    <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 大阪</h1>
+                    <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 奈良 大阪</h1>
                     <p class="text-blue-100 text-sm mt-1 font-medium">2026/02/13 — 02/20 (8天)</p>
                 </div>
                 <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[4.5rem]">
@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料 (更新餐廳推薦與D7住宿)
+        // 1. 行程資料 (TOYOTA 租車 + 餐廳推薦 + D7住宿)
         // ==========================================
         const tripData = [
             {
@@ -208,7 +208,7 @@
                     { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景，有透明車廂可選。", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
                     { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂，適合雨備。", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=Legoland+Discovery+Center+Osaka" },
                     { time: "17:30", title: "梅田逛街晚餐", desc: "前往大阪車站/梅田周邊，百貨林立好逛，享用晚餐。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" },
-                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" } // 補上 D7 續住
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Shinsaibashi" }
                 ]
             },
             {
@@ -235,7 +235,7 @@
                 items: [
                     "護照 (有效期6個月以上)", "日本入境預填文件印出", "日文駕照譯本", "台灣駕照",
                     "Visit Japan Web QR Code 截圖", "電子機票存手機", "日幣現金",
-                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡 / eSIM / 漫遊開通", 
+                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡/eSIM/漫遊開通", 
                     "換卡針 (如用實體網卡)", "iPhone 西瓜卡 (Suica) 綁定", "預約文件資料影本"
                 ]
             },
@@ -243,15 +243,15 @@
                 category: "冬季穿搭 (2月很冷!)",
                 items: [
                     "羽絨保暖外套", "發熱衣", "大人防寒衣物", "小孩防寒衣物", "毛帽 (遮耳)",
-                    "手套 (滑雪必備)", "圍巾 / 脖圍", "厚襪子", "暖暖包 (貼式/手握)",
+                    "手套 (滑雪必備)", "保暖圍巾", "厚襪子", "暖暖包 (貼式/手握)",
                     "雪鞋 (防水佳)", "好走的鞋", "一大兩小行李箱"
                 ]
             },
             {
                 category: "電子 & 雜物",
                 items: [
-                    "行動電源 (隨身)", "手機充電器", "插座 / 充電線", "轉接頭", "自拍棒/腳架",
-                    "環保購物袋", "雨傘 (摺疊)", "常備藥品", "盥洗用品", "保養品",
+                    "行動電源 (隨身)", "手機充電器", "插座/充電線", "轉接頭", "自拍棒/腳架",
+                    "環保購物袋", "折疊雨傘", "常備藥品", "盥洗用品", "保養品",
                     "小孩綁髮飾品", "免洗褲", "護唇膏", "塑膠袋", "隱形眼鏡",
                     "衛生紙/濕紙巾", "衛生棉", "備用口罩", "水壺", "耳塞",
                     "手機掛繩", "iPad (離線影片)"
@@ -264,8 +264,8 @@
         // ==========================================
         const infoData = {
             flights: [
-                { leg: "去程 桃園機場第二航廈 TPE → KIX  關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回程 關西機場第ㄧ航廈 KIX → TPE  桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去：桃園機場第二航廈→關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
+                { leg: "回：關西機場第ㄧ航廈→桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
@@ -357,6 +357,7 @@
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
             
+            // 修正天氣邏輯：確保 D5 奈良、D6 大阪 正確顯示
             let locationName = "日本";
             if (data.area.includes("奈良")) locationName = "奈良"; 
             else if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
@@ -378,16 +379,18 @@
             data.events.forEach((event, idx) => {
                 let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
                 
+                // 增加 rest 類型 (白底無邊框)
                 if(event.type === 'flight') style = { bg: "bg-gradient-to-r from-sky-500 to-blue-600 text-white", border: "border-none", text: "text-white", icon: "text-white/80" };
                 else if(event.type === 'snow') style = { bg: "bg-gradient-to-r from-cyan-400 to-sky-400 text-white", border: "border-none", text: "text-white", icon: "text-white/90" };
                 else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
                 else if(event.type === 'food') style = { bg: "bg-orange-50", border: "border-orange-400", text: "text-gray-800", icon: "text-orange-500" };
                 else if(event.type === 'spot') style = { bg: "bg-white", border: "border-green-500", text: "text-gray-800", icon: "text-green-500" };
                 else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
-                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
+                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" }; // 白底
 
+                // 修改：導航按鈕改為不搶眼的深灰底白字 (bg-gray-600 text-white)，尺寸縮小
                 const isDark = (event.type === 'flight' || event.type === 'snow');
-                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-100 text-gray-600 hover:bg-gray-200';
+                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-600 text-white shadow-sm hover:bg-gray-700';
 
                 const card = document.createElement('div');
                 card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start mb-4`;
