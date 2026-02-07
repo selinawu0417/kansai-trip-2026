@@ -58,7 +58,7 @@
                 <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
                     <i class="fas fa-language"></i> <span>Google翻譯</span>
                 </a>
-                <a href="https://www.google.com/maps/d/u/0/edit?mid=1RhaNPO47PFwrJeCtCYdUwIZQnbpAc3w&ll=34.8172408728509%2C135.57010455&z=9" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=KOKO+HOTEL+Osaka+Namba+Sennichimae" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
                     <i class="fas fa-map-marked-alt"></i> <span>行程地圖</span>
                 </a>
             </div>
@@ -82,7 +82,7 @@
 
     <script>
         // ==========================================
-        // 1. 行程資料
+        // 1. 行程資料 (已修正 KOKO HOTEL 地圖連結)
         // ==========================================
         const tripData = [
             {
@@ -91,10 +91,10 @@
                 area: "台北 ✈️ 京都",
                 lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "14:20", title: "飛往大阪關西", desc: "桃園機場第二航廈 TPE → KIX  關西機場第一航廈（預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
+                    { time: "14:20", title: "飛往大阪關西", desc: "桃園機場第二航廈 TPE → KIX (預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
-                    { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
-                    { time: "20:30", title: "晚餐：聚樂第", desc: "京都站前居酒屋，必點 <span class='tag-food'>關東煮</span> 與 <span class='tag-food'>串燒</span>。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/search/?api=1&query=Kyoto+Ekimae+Bar+Jurakudai" }
+                    { time: "20:00", title: "入住：Emion 京都", desc: "梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
+                    { time: "20:30", title: "晚餐：聚樂第", desc: "京都站前居酒屋，必點 <span class='tag-food'>關東煮</span>。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/search/?api=1&query=Jurakudai+Kyoto" }
                 ]
             },
             {
@@ -103,18 +103,9 @@
                 area: "京都文化探索",
                 lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議 <span class='tag-tip'>09:00 前抵達</span> 避開人潮。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
-                    { time: "12:00", title: "錦市場午餐", desc: "推薦<span class='tag-food'>鮮魚木村</span>、<span class='tag-food'>抹茶甜點</span>、<span class='tag-food'>豆乳甜甜圈</span>", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
+                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+                    { time: "12:00", title: "錦市場午餐", desc: "推薦<span class='tag-food'>鮮魚木村</span>。", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
                     { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二年坂 → 三年坂。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
-                    { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步，有機會看到藝妓。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
-                    { 
-                        time: "19:00", 
-                        title: "清水/祇園晚餐", 
-                        desc: "推薦：<span class='tag-food'>奧丹清水</span> (百年湯豆腐) 或 <span class='tag-food'>名代豬排</span> (Katsukura)。", 
-                        type: "food", 
-                        icon: "fa-utensils",
-                        link: "https://www.google.com/maps/d/6"
-                    },
                     { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" }
                 ]
             },
@@ -124,26 +115,8 @@
                 area: "金閣寺 🚗 琵琶湖",
                 lat: 35.0394, lon: 135.7292, 
                 events: [
-                    { time: "上午", title: "飯店休息", desc: "悠閒享用早餐，整理行李，稍作休息。", type: "hotel", icon: "fa-coffee" },
-                    { 
-                        time: "11:00", 
-                        title: "京都站取車 (TOYOTA)", 
-                        desc: "店鋪：京都站新幹線口店。<br>地址：京都市南区東九条上殿田町31-1<br><span class='tag-tip'>車型：SIENTA Hybrid (W1)</span>", 
-                        type: "car", 
-                        icon: "fa-car", 
-                        link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" 
-                    },
-                    { time: "12:30", title: "金閣寺 (鹿苑寺)", desc: "參觀金碧輝煌的金閣寺，湖中倒影必拍！", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
-                    { 
-                        time: "13:30", 
-                        title: "金閣寺周邊午餐", 
-                        desc: "推薦：<span class='tag-food'>權太呂</span> (老字號蕎麥麵) 或 <span class='tag-food'>いただき</span> (人氣洋食)。", 
-                        type: "food", 
-                        icon: "fa-utensils",
-                        link: "https://www.google.com/maps/d/7"
-                    },
-                    { time: "16:00", title: "琵琶湖看風景", desc: "開車前往琵琶湖，湖邊散步看風景。", type: "spot", icon: "fa-water" },
-                    { time: "17:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用 <span class='tag-food'>懷石料理</span>。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
+                    { time: "11:00", title: "京都站取車 (TOYOTA)", desc: "車型：SIENTA Hybrid (W1)", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen" },
+                    { time: "17:00", title: "入住：綠水亭", desc: "房內泡湯賞湖景。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
@@ -152,9 +125,8 @@
                 area: "琵琶湖滑雪趣",
                 lat: 35.0533, lon: 135.9138, 
                 events: [
-                    { time: "09:30", title: "琵琶湖 Valley 滑雪", desc: "搭纜車上山，全日滑雪/玩雪盆！<span class='tag-tip'>記得戴防水手套</span>。", type: "snow", icon: "fa-snowflake", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley+Ropeway+Station" },
-                    { time: "12:30", title: "山頂午餐", desc: "Café 360 玻璃景觀咖啡，欣賞琵琶湖絕景。", type: "food", icon: "fa-hamburger" },
-                    { time: "16:00", title: "續住：綠水亭", desc: "滑雪完回飯店享用懷石料理，泡溫泉放鬆，消除疲勞。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
+                    { time: "09:30", title: "琵琶湖 Valley 滑雪", desc: "全日滑雪/玩雪盆！", type: "snow", icon: "fa-snowflake", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Valley" },
+                    { time: "宿", title: "續住：綠水亭", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
@@ -163,27 +135,10 @@
                 area: "奈良小鹿 🚗 大阪",
                 lat: 34.6851, lon: 135.8048, 
                 events: [
-                    { time: "09:00", title: "自駕前往奈良", desc: "出發前往古都奈良 (車程約 1 小時)。", type: "car", icon: "fa-car-side" },
-                    { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸，參觀大佛。", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
-                    { 
-                        time: "12:30", 
-                        title: "奈良推薦午餐", 
-                        desc: "推薦：<span class='tag-food'>志津香釜飯</span> (排隊名店) 或 <span class='tag-food'>麵鬪庵</span> (福袋烏龍麵)。", 
-                        type: "food", 
-                        icon: "fa-utensils",
-                        link: "https://www.google.com/maps/d/8"
-                    },
-                    { time: "16:30", title: "前往大阪", desc: "開車前往大阪市區。", type: "car", icon: "fa-road" },
-                    { 
-                        time: "19:00", 
-                        title: "難波還車 (TOYOTA)", 
-                        desc: "店鋪：難波巴士中心店 (Namba Terminal)。<br>地址：大阪市浪速区元町1-4-8<br><span class='tag-tip'>記得加滿油再還車</span>", 
-                        type: "transport", 
-                        icon: "fa-check-circle", 
-                        link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Namba+Terminal+Shop" 
-                    },
-                    { time: "19:30", title: "入住：KOKO HOTEL 大阪難波", desc: "難波千日前分館，Check-in 放置行李。", type: "hotel", icon: "fa-hotel", link: "https://maps.app.goo.gl/uXv7S37Kmqp5ZqW68" },
-                    { time: "20:00", title: "黑門市場晚餐", desc: "享受大阪美食巡禮 (注意營業時間)。", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market" }
+                    { time: "10:30", title: "奈良公園 & 東大寺", desc: "與小鹿近距離接觸。", type: "spot", icon: "fa-deer", link: "https://www.google.com/maps/search/?api=1&query=Nara+Park" },
+                    { time: "19:00", title: "難波還車 (TOYOTA)", desc: "難波巴士中心店 (Namba Terminal)", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Namba+Terminal" },
+                    { time: "19:30", title: "入住：KOKO HOTEL 難波千日前", desc: "Check-in 放置行李。", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" },
+                    { time: "20:00", title: "黑門市場晚餐", desc: "美食巡禮。", type: "food", icon: "fa-drumstick-bite", link: "https://www.google.com/maps/search/?api=1&query=Kuromon+Market" }
                 ]
             },
             {
@@ -192,10 +147,9 @@
                 area: "天王寺親子遊",
                 lat: 34.6937, lon: 135.5023, 
                 events: [
-                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛，可租借推車。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
-                    { time: "16:00", title: "HARUKAS 300", desc: "高空展望台拍照，<span class='tag-tip'>傍晚夕陽最美</span>。", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
-                    { time: "18:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決 (有美食街)。", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Q's+Mall" },
-                    { time: "宿", title: "續住 KOKO HOTEL 難波", desc: "位於千日前，逛街購物極方便。", type: "hotel", icon: "fa-bed", link: "https://maps.app.goo.gl/uXv7S37Kmqp5ZqW68" }
+                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
+                    { time: "18:00", title: "阿倍野 Q’s Mall", desc: "好逛好買。", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Qs+Mall" },
+                    { time: "宿", title: "續住 KOKO HOTEL 難波", desc: "位於千日前。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
                 ]
             },
             {
@@ -204,11 +158,8 @@
                 area: "海遊館 & 梅田",
                 lat: 34.6937, lon: 135.5023, 
                 events: [
-                    { time: "09:30", title: "海遊館", desc: "世界級水族館，必看 <span class='tag-food'>鯨鯊</span> 餵食秀。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
-                    { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景，有透明車廂可選。", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
-                    { time: "14:30", title: "LEGO Discovery", desc: "樂高樂園室內玩樂，適合雨備。", type: "spot", icon: "fa-cubes", link: "https://www.google.com/maps/search/?api=1&query=Legoland+Discovery+Center+Osaka" },
-                    { time: "17:30", title: "梅田逛街晚餐", desc: "前往大阪車站/梅田周邊，百貨林立好逛，享用晚餐。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" },
-                    { time: "宿", title: "續住 KOKO HOTEL 難波", desc: "", type: "hotel", icon: "fa-bed", link: "https://maps.app.goo.gl/uXv7S37Kmqp5ZqW68" }
+                    { time: "09:30", title: "海遊館", desc: "必看鯨鯊餵食秀。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
+                    { time: "宿", title: "續住 KOKO HOTEL 難波", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
                 ]
             },
             {
@@ -217,10 +168,8 @@
                 area: "大阪 ✈️ 台北",
                 lat: 34.4320, lon: 135.2304, 
                 events: [
-                    { time: "上午", title: "飯店休息", desc: "飯店悠閒早餐，整理行李，不安排行程。", type: "rest", icon: "fa-coffee" },
-                    { time: "10:30", title: "前往機場", desc: "南海電鐵難波站直達機場 (預留充裕時間)。", type: "transport", icon: "fa-bus" },
-                    { time: "14:30", title: "飛往台北", desc: "關西機場第一航廈 KIX 14:30 → TPE 16:45 桃園機場第二航廈，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" },
-                    { time: "16:45", title: "抵達", desc: "甜蜜的家。", type: "home", icon: "fa-home" }
+                    { time: "10:30", title: "前往機場", desc: "南海電鐵難波站直達機場。", type: "transport", icon: "fa-bus", link: "https://www.google.com/maps/search/?api=1&query=Namba+Station" },
+                    { time: "14:30", title: "飛往台北", desc: "KIX 14:30 → TPE 16:45", type: "flight", icon: "fa-plane-arrival" }
                 ]
             }
         ];
@@ -228,49 +177,24 @@
         const checklistData = [
             {
                 category: "必備證件 & 金錢",
-                items: [
-                    "護照 (有效期6個月以上)", "日文駕照譯本", "台灣駕照",
-                    "Visit Japan Web QR Code 截圖", "日幣現金",
-                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡/eSIM/漫遊開通", 
-                    "換卡針 (如用實體網卡)", "iPhone 西瓜卡 (Suica) 綁定", "預約文件資料影本"
-                ]
-            },
-            {
-                category: "冬季穿搭 (2月很冷!)",
-                items: [
-                    "羽絨保暖外套", "發熱衣", "大人防寒衣物", "小孩防寒衣物", "毛帽 (遮耳)",
-                    "手套 (滑雪必備)", "保暖圍巾", "厚襪子", "暖暖包 (貼式/手握)",
-                    "雪鞋 (防水佳)", "好走的鞋", "一大兩小行李箱", "後背包或隨身包"
-                ]
+                items: ["護照", "日文駕照譯本", "VJW QR Code", "日幣現金", "信用卡", "eSIM/網卡"]
             }
         ];
 
         const infoData = {
             flights: [
-                { leg: "去：桃園機場第二航廈→關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回：關西機場第ㄧ航廈→桃園機場第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去：TPE → KIX", code: "CI172", time: "14:20 - 17:50", route: "2/13" },
+                { leg: "回：KIX → TPE", code: "CI153", time: "14:30 - 16:45", route: "2/20" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
                 { name: "琵琶湖綠水亭", address: "滋賀縣大津市雄琴6-1-6", map: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" },
-                { name: "KOKO HOTEL 大阪難波千日前", address: "大阪府大阪市中央区難波千日前8-8", map: "https://maps.app.goo.gl/uXv7S37Kmqp5ZqW68" }
-            ],
-            links: [
-                { title: "琵琶湖 Valley 即時影像", desc: "出發前必看！確認山上雪況與天氣。", icon: "fa-video", color: "text-red-500", url: "https://www.biwako-valley.com/livecamera/" },
-                { title: "JR 西日本運行情報", desc: "即時查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" }
-            ],
-            emergency: [
-                { title: "警察局", tel: "110" },
-                { title: "火警/救護車", tel: "119" },
-                { title: "駐大阪辦事處 (急難)", tel: "+81-90-8794-4568" }
-            ],
-            guides: [
-                { title: "入境教學：Visit Japan Web", content: "入境審查與海關申報已合併為<span class='text-red-500 font-bold'>一個 QR Code</span>。請一人一碼，並截圖備用。", link: "https://vjw-lp.digital.go.jp/zh-hant/" }
+                { name: "KOKO HOTEL 大阪難波千日前", address: "大阪府大阪市中央区難波千日前1-3-7", map: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
             ]
         };
 
         // ==========================================
-        // 4. 程式邏輯 (保持不變)
+        // 4. 程式邏輯
         // ==========================================
         const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
@@ -285,12 +209,7 @@
                 const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
                 const data = await response.json();
                 const temp = Math.round(data.current_weather.temperature);
-                const code = data.current_weather.weathercode;
-                let icon = "fa-sun";
-                if (code > 3) icon = "fa-cloud";
-                if (code >= 51) icon = "fa-cloud-rain";
-                if (code >= 71) icon = "fa-snowflake";
-                weatherDisplay.innerHTML = `<i class="fas ${icon}"></i> ${temp}°`;
+                weatherDisplay.innerHTML = `<i class="fas fa-sun"></i> ${temp}°`;
             } catch (error) {
                 weatherDisplay.innerText = "N/A";
             }
@@ -301,123 +220,51 @@
             tripData.forEach((item, index) => {
                 const isActive = index === activeIndex;
                 const btn = document.createElement('div');
-                btn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isActive ? 'bg-blue-600 text-white shadow-lg scale-105 ring-2 ring-blue-300' : 'bg-white text-gray-500 shadow-sm'}`;
-                btn.innerHTML = `<span class="text-[10px] font-medium opacity-80">${item.date.split(' ')[0]}</span><span class="text-xl font-bold">${item.day}</span>`;
-                btn.onclick = () => { 
-                    activeIndex = index; 
-                    renderTabs(); 
-                    renderContent(); 
-                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); 
-                };
+                btn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isActive ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow-sm'}`;
+                btn.innerHTML = `<span class="text-[10px]">${item.date.split(' ')[0]}</span><span class="text-xl font-bold">${item.day}</span>`;
+                btn.onclick = () => { activeIndex = index; renderTabs(); renderContent(); };
                 tabsContainer.appendChild(btn);
             });
 
             const infoBtn = document.createElement('div');
-            const isInfoActive = activeIndex === 100;
-            infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isInfoActive ? 'bg-emerald-500 text-white shadow-lg scale-105 ring-2 ring-emerald-300' : 'bg-white text-gray-500 shadow-sm'}`;
-            infoBtn.innerHTML = `<span class="text-[10px] font-medium opacity-80">Info</span><span class="text-xl font-bold"><i class="fas fa-info-circle"></i></span>`;
-            infoBtn.onclick = () => { activeIndex = 100; renderTabs(); renderInfo(); infoBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); };
+            infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all snap-center ${activeIndex === 100 ? 'bg-emerald-500 text-white' : 'bg-white text-gray-500'}`;
+            infoBtn.innerHTML = `<span class="text-[10px]">Info</span><span class="text-xl"><i class="fas fa-info-circle"></i></span>`;
+            infoBtn.onclick = () => { activeIndex = 100; renderTabs(); renderInfo(); };
             tabsContainer.appendChild(infoBtn);
-
-            const listBtn = document.createElement('div');
-            const isListActive = activeIndex === 99;
-            listBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isListActive ? 'bg-orange-500 text-white shadow-lg scale-105 ring-2 ring-orange-300' : 'bg-white text-gray-500 shadow-sm'}`;
-            listBtn.innerHTML = `<span class="text-[10px] font-medium opacity-80">List</span><span class="text-xl font-bold"><i class="fas fa-tasks"></i></span>`;
-            listBtn.onclick = () => { activeIndex = 99; renderTabs(); renderChecklist(); listBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); };
-            tabsContainer.appendChild(listBtn);
         }
 
         function renderContent() {
             const data = tripData[activeIndex];
             contentArea.innerHTML = '';
-            
-            let locationName = "日本";
-            if (data.area.includes("奈良")) locationName = "奈良"; 
-            else if (data.area.includes("京都") || data.area.includes("金閣寺")) locationName = "京都";
-            else if (data.area.includes("大阪") || data.area.includes("梅田") || data.area.includes("天王寺") || data.area.includes("海遊館")) locationName = "大阪";
-            else if (data.area.includes("琵琶湖")) locationName = "琵琶湖";
-            
-            fetchWeather(data.lat, data.lon, locationName);
-
-            const headerHtml = `
-                <div class="flex justify-between items-end mb-4 px-1 animate-card">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-800">${data.date}</h2>
-                        <div class="flex items-center text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1.5"></i> ${data.area}</div>
-                    </div>
-                </div>
-            `;
-            contentArea.insertAdjacentHTML('beforeend', headerHtml);
+            fetchWeather(data.lat, data.lon, data.area.split(' ')[0]);
 
             data.events.forEach((event, idx) => {
-                let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
-                if(event.type === 'flight') style = { bg: "bg-gradient-to-r from-sky-500 to-blue-600 text-white", border: "border-none", text: "text-white", icon: "text-white/80" };
-                else if(event.type === 'snow') style = { bg: "bg-gradient-to-r from-cyan-400 to-sky-400 text-white", border: "border-none", text: "text-white", icon: "text-white/90" };
-                else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
-                else if(event.type === 'food') style = { bg: "bg-orange-50", border: "border-orange-400", text: "text-gray-800", icon: "text-orange-500" };
-                else if(event.type === 'spot') style = { bg: "bg-white", border: "border-green-500", text: "text-gray-800", icon: "text-green-500" };
-                else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
-                else if(event.type === 'rest') style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
-
-                const isDark = (event.type === 'flight' || event.type === 'snow');
-                const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-600 text-white shadow-sm hover:bg-gray-700';
+                let style = { bg: "bg-white", border: "border-gray-200" };
+                if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500" };
+                if(event.type === 'flight') style = { bg: "bg-blue-600 text-white", border: "border-none" };
 
                 const card = document.createElement('div');
-                card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start mb-4`;
-                card.style.animationDelay = `${idx * 50}ms`;
-                
+                card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm animate-card flex gap-4 items-start mb-4`;
                 card.innerHTML = `
-                    <div class="flex flex-col items-center pt-1 w-12 text-center flex-shrink-0">
-                        <div class="${isDark?'text-white/90':'text-gray-500'} text-xs font-bold mb-1">${event.time}</div>
-                        <i class="fas ${event.icon} ${style.icon} text-xl"></i>
+                    <div class="w-12 text-center flex-shrink-0">
+                        <div class="text-xs font-bold">${event.time}</div>
+                        <i class="fas ${event.icon} text-xl mt-1"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h3 class="${style.text} font-bold text-lg leading-tight truncate">${event.title}</h3>
-                        <p class="${isDark?'text-white/90':'text-gray-500'} text-sm mt-1 leading-relaxed">${event.desc}</p>
-                        ${event.link ? `<a href="${event.link}" target="_blank" class="inline-flex items-center mt-3 text-[10px] px-2.5 py-1 rounded-full ${btnClass} transition"><i class="fas fa-location-arrow mr-1.5"></i> 導航去這裡</a>` : ''}
+                        <h3 class="font-bold text-lg">${event.title}</h3>
+                        <p class="text-sm opacity-80">${event.desc}</p>
+                        ${event.link ? `<a href="${event.link}" target="_blank" class="inline-block mt-2 text-[10px] bg-gray-600 text-white px-3 py-1 rounded-full"><i class="fas fa-location-arrow"></i> 導航</a>` : ''}
                     </div>
                 `;
                 contentArea.appendChild(card);
             });
         }
 
-        function renderChecklist() {
-            contentArea.innerHTML = '';
-            weatherLocation.innerText = "清單";
-            weatherDisplay.innerHTML = '<i class="fas fa-check"></i>';
-            const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
-            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">行李檢查表</h2></div>');
-            checklistData.forEach((cat, idx) => {
-                const section = document.createElement('div');
-                section.className = "bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card";
-                const itemsHtml = cat.items.map(item => {
-                    const checked = savedState[item] ? 'checked' : '';
-                    return `<label class="checkbox-wrapper flex items-center gap-3 py-3 border-b last:border-0 border-gray-100 cursor-pointer"><input type="checkbox" class="hidden peer" value="${item}" ${checked} onchange="toggleCheck(this)"><div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center transition-all peer-checked:bg-blue-500 peer-checked:border-blue-500"><svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><span class="text-gray-700 peer-checked:text-gray-400 peer-checked:line-through transition-all">${item}</span></label>`;
-                }).join('');
-                section.innerHTML = `<h3 class="font-bold text-lg text-blue-600 mb-2 border-l-4 border-blue-600 pl-3">${cat.category}</h3><div class="flex flex-col">${itemsHtml}</div>`;
-                contentArea.appendChild(section);
-            });
-        }
-
         function renderInfo() {
-            contentArea.innerHTML = '';
-            weatherLocation.innerText = "資訊";
-            weatherDisplay.innerHTML = '<i class="fas fa-info"></i>';
-            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">旅行資訊中心</h2></div>');
-
-            let flightHtml = infoData.flights.map(f => `<div class="flex justify-between items-center border-b last:border-0 border-gray-100 py-2"><div><div class="text-xs text-gray-400">${f.leg}</div><div class="font-bold text-gray-800">${f.code}</div></div><div class="text-right"><div class="text-xs text-gray-400">${f.route}</div><div class="font-bold text-blue-600">${f.time}</div></div></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flightHtml}</div>`);
-
-            let hotelHtml = infoData.hotels.map(h => `<div class="border-b last:border-0 border-gray-100 py-3"><div class="font-bold text-gray-800">${h.name}</div><div class="text-xs text-gray-500 mt-1">${h.address}</div><a href="${h.map}" target="_blank" class="inline-block mt-2 text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded border border-indigo-200">開啟地圖</a></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-indigo-600 mb-2"><i class="fas fa-bed"></i> 住宿列表</h3>${hotelHtml}</div>`);
+            contentArea.innerHTML = '<h2 class="text-2xl font-bold mb-4">旅行資訊中心</h2>';
+            let hotelHtml = infoData.hotels.map(h => `<div class="bg-white p-4 rounded-xl shadow-sm mb-3"><strong>${h.name}</strong><br><small>${h.address}</small><br><a href="${h.map}" target="_blank" class="text-blue-500 text-xs">開啟地圖</a></div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', hotelHtml);
         }
-
-        window.toggleCheck = function(checkbox) {
-            const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
-            if (checkbox.checked) savedState[checkbox.value] = true;
-            else delete savedState[checkbox.value];
-            localStorage.setItem('trip_checklist', JSON.stringify(savedState));
-        };
 
         renderTabs();
         renderContent();
