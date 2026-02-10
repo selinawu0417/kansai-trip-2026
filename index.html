@@ -93,7 +93,7 @@
                 events: [
                     { time: "14:20", title: "飛往大阪關西", desc: "桃園機場第二航廈 TPE → KIX  關西機場第一航廈（預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
-                    { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://maps.app.goo.gl/uP4V2s58JkGz8f9M7" },
+                    { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/place/%E4%BA%AC%E9%83%BDEmion%E9%A3%AF%E5%BA%97/@34.9894809,135.7399131,17z/data=!3m2!4b1!5s0x60010617f3ca7235:0x92b7d65a97770591!4m9!3m8!1s0x6001079204406a3d:0x3b02d1f8210a0470!5m2!4m1!1i2!8m2!3d34.9894765!4d135.742488!16s%2Fg%2F11fs1c_bqr?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" },
                     { time: "20:30", title: "晚餐：Yakiniku SEVEN", desc: "精緻和牛燒肉，享受抵達日本後的第一餐奢華美味。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/place/%E7%87%92%E8%82%89SEVEN/@34.9893694,135.7340661,17z/data=!4m6!3m5!1s0x6001063e428c405d:0x18d2bc818444c33d!8m2!3d34.989365!4d135.736641!16s%2Fg%2F11bwnyghm2?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" }
                 ]
             },
@@ -103,14 +103,22 @@
                 area: "京都文化探索",
                 lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "09:00", title: "伏見稻荷大社", desc: "千本鳥居，建議 <span class='tag-tip'>09:00 前抵達</span> 避開人潮。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
-                    { time: "12:00", title: "錦市場午餐", desc: "推薦<span class='tag-food'>鮮魚木村</span>、<span class='tag-food'>抹茶甜點</span>、<span class='tag-food'>豆乳甜甜圈</span>", type: "food", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Nishiki+Market" },
-                    { time: "14:00", title: "清水寺散策", desc: "清水寺 → 二n坂 → 三n坂。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
-                    { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步，有機會看到藝妓。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
+                    { time: "08:00", title: "飯店早餐", desc: "在 Emion 京都享用早餐，補足體力再出發。", type: "food", icon: "fa-coffee" },
+                    { time: "09:30", title: "伏見稻荷大社", desc: "千本鳥居，建議避開人潮。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+                    { 
+                        time: "12:00", 
+                        title: "稻荷周邊午餐", 
+                        desc: "推薦簡單吃：<span class='tag-food'>eight</span> (麵包)、<span class='tag-food'>寶玉堂</span> (煎餅) 或 <span class='tag-food'>稻荷二葉</span> (烏龍麵/大福)。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://tabelog.com/en/kyoto/A2601/A260601/26038881/"
+                    },
+                    { time: "14:30", title: "清水寺散策", desc: "清水寺 → 二n坂 → 三n坂。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
+                    { time: "17:30", title: "祇園花見小路", desc: "古色古香的街道散步。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
                     { 
                         time: "19:00", 
-                        title: "晚餐：先斗町 喜楽 (Kiraku)", 
-                        desc: "在充滿京都風情的先斗町 (Pontocho Shabu-shabu Sukiyaki Kiraku享用 <span class='tag-food'>黑毛和牛壽喜燒/涮涮鍋</span>。", 
+                        title: "晚餐：先斗町 喜楽 (Pontocho Shabushabu Sukiyaki Kiraku)", 
+                        desc: "享用 <span class='tag-food'>黑毛和牛壽喜燒/涮涮鍋</span>。", 
                         type: "food", 
                         icon: "fa-utensils",
                         link: "https://www.google.com/maps/place/Pontocho+Shabu-shabu+Sukiyaki+Kiraku/@35.0042083,135.768466,17z/data=!3m1!4b1!4m6!3m5!1s0x60010900327eb3d9:0x804cbaa75c3bdac7!8m2!3d35.0042039!4d135.7710409!16s%2Fg%2F11vx26bxlw?authuser=0&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D"
