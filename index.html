@@ -8,28 +8,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
-            background-color: #f8fafc; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-card { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-card { animation: slideUp 0.3s ease-out forwards; }
 
         .checkbox-wrapper input:checked + div {
             background-color: #2563eb;
             border-color: #2563eb;
         }
+        .checkbox-wrapper input:checked + div svg {
+            display: block;
+        }
 
-        /* 分類標籤樣式 */
-        .tag-food { color: #b45309; font-weight: 700; background-color: #fef3c7; padding: 2px 6px; border-radius: 4px; }
-        .tag-tip { color: #059669; font-weight: 700; }
+        .tag-food { color: #d97706; font-weight: bold; background-color: #fffbeb; padding: 0 4px; border-radius: 4px; }
+        .tag-buy { color: #be185d; font-weight: bold; background-color: #fce7f3; padding: 0 4px; border-radius: 4px; }
+        .tag-tip { color: #059669; font-weight: bold; }
         
+        .weather-loading { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+
         /* Mapcode Modal 樣式 */
         #mapcode-modal { 
             display: none; 
@@ -39,14 +45,14 @@
             align-items: center; 
             justify-content: center; 
             padding: 1rem; 
-            background-color: rgba(15, 23, 42, 0.6); 
-            backdrop-filter: blur(8px);
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(4px);
         }
-        .mapcode-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .mapcode-table th { text-align: left; padding: 10px; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: 600; }
-        .mapcode-table td { padding: 10px; border-bottom: 1px solid #f1f5f9; }
-        .mapcode-num { font-family: monospace; font-weight: 700; color: #2563eb; font-size: 14px; white-space: nowrap; }
-        .parking-note { color: #64748b; font-size: 11px; line-height: 1.3; }
+        .mapcode-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+        .mapcode-table th { background-color: #f8fafc; text-align: left; padding: 10px; border-bottom: 2px solid #e2e8f0; color: #64748b; }
+        .mapcode-table td { padding: 12px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; color: #1e293b; }
+        .mapcode-num { font-family: monospace; font-weight: bold; color: #059669; font-size: 15px; }
+        .parking-note { color: #6b7280; font-size: 11px; line-height: 1.3; }
     </style>
 </head>
 <body class="pb-24 select-none">
@@ -58,8 +64,8 @@
                     <h1 class="text-2xl font-bold tracking-tight">2026日本旅遊- 京都 琵琶湖 宇治 大阪</h1>
                     <p class="text-blue-100 text-sm mt-1 font-medium">2026/02/13 — 02/20 (8天)</p>
                 </div>
-                <div class="bg-white/20 backdrop-blur-md rounded-xl p-2 text-center min-w-[4.5rem] border border-white/30">
-                    <div class="text-[10px] text-blue-50 mb-0.5" id="weather-location">載入中</div>
+                <div class="bg-white/20 backdrop-blur-md rounded-lg p-2 text-center min-w-[4.5rem]">
+                    <div class="text-xs text-blue-100 mb-1" id="weather-location">載入中</div>
                     <div class="text-xl font-bold flex items-center justify-center gap-1" id="weather-display">
                         <i class="fas fa-circle-notch fa-spin text-sm"></i>
                     </div>
@@ -67,130 +73,182 @@
             </div>
 
             <div class="grid grid-cols-2 gap-3 mt-6">
-                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white py-3 rounded-xl transition active:scale-95">
-                    <i class="fas fa-language"></i> <span class="font-bold">Google翻譯</span>
+                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
+                    <i class="fas fa-language"></i> <span>Google翻譯</span>
                 </a>
-                <button onclick="showMapcode(true)" class="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white py-3 rounded-xl transition active:scale-95">
-                    <i class="fas fa-list-ol"></i> <span class="font-bold">Mapcode 表格</span>
+                <button onclick="showMapcode(true)" class="flex items-center justify-center gap-2 bg-emerald-600 border border-emerald-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-emerald-700">
+                    <i class="fas fa-list-ol"></i> <span>Mapcode 表格</span>
                 </button>
             </div>
         </div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
     </div>
 
     <div id="mapcode-modal" onclick="if(event.target == this) showMapcode(false)">
-        <div class="bg-white w-full max-w-lg rounded-[2rem] overflow-hidden shadow-2xl animate-card">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="font-bold text-xl text-slate-800">自駕 Mapcode 與停車</h3>
-                <button onclick="showMapcode(false)" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
+        <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl animate-card">
+            <div class="bg-emerald-600 p-4 text-white flex justify-between items-center">
+                <h3 class="font-bold text-lg"><i class="fas fa-parking mr-2"></i>自駕導航數字 (Mapcode)</h3>
+                <button onclick="showMapcode(false)" class="w-8 h-8 flex items-center justify-center bg-white/20 rounded-full"><i class="fas fa-times"></i></button>
             </div>
-            <div class="max-h-[60vh] overflow-y-auto">
+            <div class="max-h-[65vh] overflow-y-auto">
                 <table class="mapcode-table">
-                    <thead><tr><th>目的地</th><th>Mapcode</th><th>停車補充</th></tr></thead>
+                    <thead><tr><th>地點</th><th>Mapcode 數字</th><th>停車狀況</th></tr></thead>
                     <tbody id="mapcode-body"></tbody>
                 </table>
             </div>
+            <div class="p-4 bg-gray-50 text-center text-xs text-gray-400 font-medium">輸入數字至車載導航後確認地點即可</div>
         </div>
     </div>
 
-    <div class="sticky top-0 z-30 bg-[#f8fafc]/90 backdrop-blur-md pt-2 pb-1">
+    <div class="sticky top-0 z-30 bg-[#f3f4f6]/95 backdrop-blur-sm pt-2 pb-1">
         <div class="-mt-10 px-4 mb-2">
-            <div id="tabs-container" class="flex gap-2 overflow-x-auto no-scrollbar py-2 px-1 snap-x"></div>
+            <div id="tabs-container" class="flex gap-2 overflow-x-auto no-scrollbar py-2 px-1 snap-x">
+                </div>
         </div>
     </div>
 
-    <div id="content-area" class="px-4 space-y-4 min-h-[50vh]"></div>
+    <div id="content-area" class="px-4 space-y-4 min-h-[50vh]">
+        </div>
 
-    <div class="text-center text-slate-400 text-[10px] mt-12 mb-6 tracking-widest uppercase">Chou Family Trip • 2026</div>
+    <div class="text-center text-gray-400 text-xs mt-10 mb-4">
+         Chou Family Trip in 2026
+    </div>
 
     <script>
+        // ==========================================
+        // 1. 行程資料 (內容格式完全不動)
+        // ==========================================
         const tripData = [
             {
-                day: "D1", date: "2/13 (五)", area: "台北 ✈️ 京都", lat: 35.0116, lon: 135.7681, 
+                day: "D1",
+                date: "2/13 (五)",
+                area: "台北 ✈️ 京都",
+                lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "14:20", title: "飛往大阪關西", desc: "TPE → KIX (預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
+                    { time: "14:20", title: "飛往大阪關西", desc: "桃園機場第二航廈 TPE → KIX  關西機場第一航廈（預計 17:50 抵達)", type: "flight", icon: "fa-plane-departure" },
                     { time: "18:30", title: "Haruka 直達京都", desc: "機場前往京都站 (約 75 分鐘)", type: "transport", icon: "fa-train" },
                     { time: "20:00", title: "入住：Emion 京都", desc: "就在梅小路京都西站旁", type: "hotel", icon: "fa-suitcase", link: "https://www.google.com/maps/place/%E4%BA%AC%E9%83%BDEmion%E9%A3%AF%E5%BA%97/@34.9894809,135.7399131,17z/data=!3m2!4b1!5s0x60010617f3ca7235:0x92b7d65a97770591!4m9!3m8!1s0x6001079204406a3d:0x3b02d1f8210a0470!5m2!4m1!1i2!8m2!3d34.9894765!4d135.742488!16s%2Fg%2F11fs1c_bqr?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" },
-                    { time: "20:30", title: "晚餐：Yakiniku SEVEN", desc: "精緻和牛燒肉。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/place/%E7%87%92%E8%82%89SEVEN/@34.9893694,135.7340661,17z/data=!4m6!3m5!1s0x6001063e428c405d:0x18d2bc818444c33d!8m2!3d34.989365!4d135.736641!16s%2Fg%2F11bwnyghm2?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" }
+                    { time: "20:30", title: "晚餐：Yakiniku SEVEN", desc: "精緻和牛燒肉，享受抵達日本後的第一餐奢華美味。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/place/%E7%87%92%E8%82%89SEVEN/@34.9893694,135.7340661,17z/data=!4m6!3m5!1s0x6001063e428c405d:0x18d2bc818444c33d!8m2!3d34.989365!4d135.736641!16s%2Fg%2F11bwnyghm2?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" }
                 ]
             },
             {
-                day: "D2", date: "2/14 (六)", area: "京都文化探索", lat: 35.0116, lon: 135.7681, 
+                day: "D2",
+                date: "2/14 (六)",
+                area: "京都文化探索",
+                lat: 35.0116, lon: 135.7681, 
                 events: [
-                    { time: "08:00", title: "飯店早餐", desc: "飯店內享用，補足體力。", type: "food", icon: "fa-coffee" },
-                    { time: "09:30", title: "伏見稻荷大社", desc: "千本鳥居。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
-                    { time: "12:00", title: "稻荷周邊午餐", desc: "推薦：eight、寶玉堂 或 稻荷二葉。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/place/eight/@34.9685469,135.7669073,17z/data=!3m1!4b1!4m6!3m5!1s0x60010f5134c53e09:0x5bac48c83b1309a!8m2!3d34.9685425!4d135.7694822!16s%2Fg%2F11srh1pc17?authuser=0&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" },
+                    { time: "08:00", title: "飯店早餐", desc: "在 Emion 京都享用早餐，補足體力再出發。", type: "food", icon: "fa-coffee" },
+                    { time: "09:30", title: "伏見稻荷大社", desc: "千本鳥居，建議避開人潮。", type: "spot", icon: "fa-torii-gate", link: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+                    { 
+                        time: "12:00", 
+                        title: "稻荷周邊午餐", 
+                        desc: "推薦簡單吃：<span class='tag-food'>eight</span> (麵包)、<span class='tag-food'>寶玉堂</span> (狐狸煎餅) 或 <span class='tag-food'>稻荷二葉</span> (蕎麥麵/烏龍麵)。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/place/eight/@34.9685469,135.7669073,17z/data=!3m1!4b1!4m6!3m5!1s0x60010f5134c53e09:0x5bac48c83b1309a!8m2!3d34.9685425!4d135.7694822!16s%2Fg%2F11srh1pc17?authuser=0&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D"
+                    },
                     { time: "14:30", title: "清水寺散策", desc: "清水寺 → 二年坂 → 三年坂。", type: "spot", icon: "fa-shoe-prints", link: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
-                    { time: "17:30", title: "祇園花見小路", desc: "街道散步。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
-                    { time: "19:00", title: "晚餐：先斗町 喜樂", desc: "黑毛和牛壽喜燒。", type: "food", icon: "fa-utensils", link: "https://www.google.com/maps/place/Pontocho+Shabu-shabu+Sukiyaki+Kiraku/@35.0042083,135.768466,17z/data=!3m1!4b1!4m6!3m5!1s0x60010900327eb3d9:0x804cbaa75c3bdac7!8m2!3d35.0042039!4d135.7710409!16s%2Fg%2F11vx26bxlw?authuser=0&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" },
-                    { time: "宿", title: "續住 Emion 京都", desc: "梅小路京都西站旁", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/place/%E4%BA%AC%E9%83%BDEmion%E9%A3%AF%E5%BA%97/@34.9894809,135.7399131,17z/data=!3m1!5s0x60010617f3ca7235:0x92b7d65a97770591!4m9!3m8!1s0x6001079204406a3d:0x3b02d1f8210a0470!5m2!4m1!1i2!8m2!3d34.9894765!4d135.742488!16s%2Fg%2F11fs1c_bqr?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" }
+                    { time: "17:30", title: "祇園花見小路", desc: "古色古香的街道散步。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
+                    { 
+                        time: "19:00", 
+                        title: "晚餐：先斗町 喜樂", 
+                        desc: "享用 <span class='tag-food'>黑毛和牛壽喜燒/涮涮鍋</span>。", 
+                        type: "food", 
+                        icon: "fa-utensils",
+                        link: "https://www.google.com/maps/place/Pontocho+Shabu-shabu+Sukiyaki+Kiraku/@35.0042083,135.768466,17z/data=!3m1!4b1!4m6!3m5!1s0x60010900327eb3d9:0x804cbaa75c3bdac7!8m2!3d35.0042039!4d135.7710409!16s%2Fg%2F11vx26bxlw?authuser=0&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D"
+                    },
+                    { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/place/%E4%BA%AC%E9%83%BDEmion%E9%A3%AF%E5%BA%97/@34.9894809,135.7399131,17z/data=!3m1!5s0x60010617f3ca7235:0x92b7d65a97770591!4m9!3m8!1s0x6001079204406a3d:0x3b02d1f8210a0470!5m2!4m1!1i2!8m2!3d34.9894765!4d135.742488!16s%2Fg%2F11fs1c_bqr?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" }
                 ]
             },
             {
-                day: "D3", date: "2/15 (日)", area: "明太子公園 🚗 琵琶湖", lat: 35.1972, lon: 136.0125, 
+                day: "D3",
+                date: "2/15 (日)",
+                area: "明太子公園 🚗 琵琶湖",
+                lat: 35.1972, lon: 136.0125, 
                 events: [
-                    { time: "11:00", title: "京都站取車 (TOYOTA)", desc: "新幹線口店取車。", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" },
-                    { time: "13:30", title: "明太子公園琵琶湖", desc: "親子互動區與美食。", type: "spot", icon: "fa-store", link: "https://maps.app.goo.gl/WXYpF1XVJ9o3SyR16" },
-                    { time: "15:30", title: "La Collina 近江八幡", desc: "草根屋建築與年輪蛋糕。", type: "spot", icon: "fa-leaf", link: "https://maps.app.goo.gl/km72r9sKMW2p3wYDA?g_st=il" },
-                    { time: "17:30", title: "入住：綠水亭", desc: "泡湯賞湖景，懷石料理。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
+                    { time: "11:00", title: "京都站取車 (TOYOTA)", desc: "店鋪：京都站新幹線口店。<br><span class='tag-tip'>車型：SIENTA Hybrid (W1)</span>", type: "car", icon: "fa-car", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Kyoto+Station+Shinkansen+Exit" },
+                    { time: "13:30", title: "明太子公園琵琶湖", desc: "親子互動遊戲區與明太子美食。", type: "spot", icon: "fa-store", link: "https://maps.app.goo.gl/WXYpF1XVJ9o3SyR16" },
+                    { time: "15:30", title: "La Collina 近江八幡", desc: "ラ コリーナ近江八幡：草根屋建築與排隊年輪蛋糕。", type: "spot", icon: "fa-leaf", link: "https://maps.app.goo.gl/km72r9sKMW2p3wYDA?g_st=il" },
+                    { time: "17:30", title: "入住：綠水亭", desc: "房內泡湯賞湖景，晚餐享用懷石料理。", type: "hotel", icon: "fa-hot-tub", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
-                day: "D4", date: "2/16 (一)", area: "箱館山滑雪趣", lat: 35.4552, lon: 136.0163, 
+                day: "D4",
+                date: "2/16 (一)",
+                area: "箱館山滑雪趣",
+                lat: 35.4552, lon: 136.0163, 
                 events: [
-                    { time: "09:00", title: "白鬚神社", desc: "湖中大鳥居停留拍照。", type: "spot", icon: "fa-camera", link: "https://maps.app.goo.gl/4aM5ocSv1DKHX42TA" },
-                    { time: "10:30", title: "箱館山滑雪場", desc: "適合小孩，玩雪盆超輕鬆。", type: "snow", icon: "fa-snowflake", link: "https://maps.app.goo.gl/sTFgwmzm44dj8ags6?g_st=il"},
-                    { time: "12:30", title: "山頂午餐", desc: "欣賞琵琶湖絕景。", type: "food", icon: "fa-hamburger" },
-                    { time: "15:00", title: "高島市兒童之國", desc: "小朋友還有體力可去玩。", type: "spot", icon: "fa-child", link: "https://maps.app.goo.gl/hRr1sx9uCUVpwQde7" },
-                    { time: "17:30", title: "續住：綠水亭", desc: "泡溫泉放鬆。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
+                    { time: "09:00", title: "白鬚神社", desc: "湖中大鳥居，滑雪途中停靠拍照 <span class='tag-tip'>路邊拍照請注意安全</span>。", type: "spot", icon: "fa-camera", link: "https://maps.app.goo.gl/4aM5ocSv1DKHX42TA" },
+                    { time: "10:30", title: "箱館山滑雪場", desc: "適合小孩！設有兒童雪樂園 (Kid's World) 與電動步道，玩雪盆超輕鬆。", type: "snow", icon: "fa-snowflake", link: "https://maps.app.goo.gl/sTFgwmzm44dj8ags6?g_st=il"},
+                    { time: "12:30", title: "山頂午餐", desc: "欣賞琵琶湖絕景同時享用熱騰騰餐點。", type: "food", icon: "fa-hamburger" },
+                    { time: "15:00", title: "高島市兒童之國", desc: "小朋友還有體力的話，回程經過可以繼續玩。", type: "spot", icon: "fa-child", link: "https://maps.app.goo.gl/hRr1sx9uCUVpwQde7" },
+                    { time: "17:30", title: "續住：綠水亭", desc: "滑雪完回飯店泡溫泉放鬆，晚餐享用懷石料理。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" }
                 ]
             },
             {
-                day: "D5", date: "2/17 (二)", area: "宇治文化 🚗 大阪", lat: 34.8892, lon: 135.8077, 
+                day: "D5",
+                date: "2/17 (二)",
+                area: "宇治文化 🚗 大阪",
+                lat: 34.8892, lon: 135.8077, 
                 events: [
-                    { time: "09:00", title: "金閣寺", desc: "世界遺產名勝。", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
-                    { time: "12:00", title: "宇治名店午餐", desc: "中村藤吉 或 伊藤久右衛門。", type: "food", icon: "fa-leaf", link: "https://www.tokichi.jp/" },
-                    { time: "14:30", title: "平等院", desc: "鳳凰堂本尊。", type: "spot", icon: "fa-landmark", link: "https://www.byodoin.or.jp/" },
-                    { time: "19:00", title: "難波還車 (TOYOTA)", desc: "記得先加滿油。", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Namba+Terminal+Shop" },
+                    { time: "09:00", title: "金閣寺 (鹿苑寺)", desc: "參觀金碧輝煌的金閣寺。", type: "spot", icon: "fa-place-of-worship", link: "https://www.google.com/maps/search/?api=1&query=Kinkakuji+Kyoto" },
+                    { time: "12:00", title: "宇治名店午餐", desc: "推薦：<span class='tag-food'>中村藤吉 本店</span> 或 <span class='tag-food'>伊藤久右衛門</span>。", type: "food", icon: "fa-leaf", link: "https://www.tokichi.jp/" },
+                    { time: "14:30", title: "平等院 （世界遺產）", desc: "10日圓硬幣本尊 欣賞鳳凰堂，感受古都宇治氣息。", type: "spot", icon: "fa-landmark", link: "https://www.byodoin.or.jp/" },
+                    { time: "19:00", title: "難波還車 (TOYOTA)", desc: "店鋪：難波巴士中心店。記得加滿油。", type: "transport", icon: "fa-check-circle", link: "https://www.google.com/maps/search/?api=1&query=Toyota+Rent+a+Car+Namba+Terminal+Shop" },
                     { time: "19:30", title: "入住：KOKO HOTEL", desc: "難波千日前分館。", type: "hotel", icon: "fa-hotel", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
                 ]
             },
             {
-                day: "D6", date: "2/18 (三)", area: "天王寺親子遊", lat: 34.6472, lon: 135.5139, 
+                day: "D6",
+                date: "2/18 (三)",
+                area: "天王寺親子遊",
+                lat: 34.6472, lon: 135.5139, 
                 events: [
-                    { time: "09:30", title: "天王寺動物園", desc: "親子同樂時間。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
-                    { time: "16:00", title: "HARUKAS 300", desc: "高空景色拍照。", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
-                    { time: "18:00", title: "阿倍野 Q’s Mall", desc: "購物與晚餐。", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Q's+Mall" },
-                    { time: "宿", title: "續住 KOKO HOTEL", desc: "難波千日前", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
+                    { time: "09:30", title: "天王寺動物園", desc: "🦁 孩子的最愛。", type: "spot", icon: "fa-hippo", link: "https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" },
+                    { time: "16:00", title: "HARUKAS 300", desc: "展望台拍照，夕陽與夜景一次滿足。", type: "spot", icon: "fa-cloud", link: "https://www.google.com/maps/search/?api=1&query=Harukas+300" },
+                    { time: "18:00", title: "阿倍野 Q’s Mall", desc: "好逛好買，晚餐在此解決。", type: "shop", icon: "fa-shopping-cart", link: "https://www.google.com/maps/search/?api=1&query=Abeno+Q's+Mall" },
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "難波千日前分館。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
                 ]
             },
             {
-                day: "D7", date: "2/19 (四)", area: "海遊館 & 梅田", lat: 34.6525, lon: 135.4289, 
+                day: "D7",
+                date: "2/19 (四)",
+                area: "海遊館 & 梅田",
+                lat: 34.6525, lon: 135.4289, 
                 events: [
-                    { time: "09:30", title: "海遊館", desc: "看巨大鯨鯊。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
-                    { time: "17:30", title: "梅田逛街", desc: "百貨公司購物。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" },
-                    { time: "宿", title: "續住 KOKO HOTEL", desc: "難波千日前", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
+                    { time: "09:30", title: "海遊館", desc: "世界級水族館，必看鯨鯊。", type: "spot", icon: "fa-fish", link: "https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" },
+                    { time: "13:00", title: "天保山摩天輪", desc: "欣賞港區風景。", type: "spot", icon: "fa-dharmachakra", link: "https://www.google.com/maps/search/?api=1&query=Tempozan+Ferris+Wheel" },
+                    { time: "17:30", title: "梅田逛街晚餐", desc: "百貨林立，享用最後的大阪晚餐。", type: "shop", icon: "fa-building", link: "https://www.google.com/maps/search/?api=1&query=Umeda+Osaka" },
+                    { time: "宿", title: "續住 KOKO HOTEL", desc: "難波千日前分館。", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
                 ]
             },
             {
-                day: "D8", date: "2/20 (五)", area: "大阪 ✈️ 台北", lat: 34.4320, lon: 135.2304, 
+                day: "D8",
+                date: "2/20 (五)",
+                area: "大阪 ✈️ 台北",
+                lat: 34.4320, lon: 135.2304, 
                 events: [
-                    { time: "上午", title: "飯店休息", desc: "整理行李，飯店早餐。", type: "hotel", icon: "fa-coffee" },
-                    { time: "11:00", title: "前往機場", desc: "南海電鐵至關西機場。", type: "transport", icon: "fa-bus" },
-                    { time: "14:30", title: "飛往台北", desc: "CI153 KIX → TPE (預計 16:45 抵達)。", type: "flight", icon: "fa-plane-arrival" }
+                    { time: "上午", title: "飯店休息", desc: "悠閒早餐後，整理行李往機場出發。", type: "rest", icon: "fa-coffee" },
+                    { time: "14:30", title: "飛往台北", desc: "KIX 14:30 → TPE 16:45，期待下次旅行！", type: "flight", icon: "fa-plane-arrival" }
                 ]
             }
         ];
 
         const checklistData = [
-            { category: "必備證件 & 金錢", items: ["護照 (有效期6個月)", "日文駕照譯本", "台灣駕照", "VJW QR Code", "日幣現金", "高回饋信用卡"] },
-            { category: "冬季穿搭", items: ["羽絨外套", "發熱衣", "毛帽/手套", "厚襪子", "雪鞋", "暖暖包"] },
-            { category: "電子 & 雜物", items: ["行動電源", "插座轉接頭", "常備藥品", "保養品", "iPad (離線影片)"] }
+            {
+                category: "必備證件 & 金錢",
+                items: ["護照 (有效期6個月以上)", "日文駕照譯本", "台灣駕照", "VJW QR Code 截圖", "日幣現金", "海外高回饋信用卡", "iPhone Suica 綁定"]
+            },
+            {
+                category: "冬季穿搭 (2月很冷!)",
+                items: ["羽絨保暖外套", "發熱衣", "防寒衣物", "毛帽/手套", "厚襪子", "暖暖包", "雪鞋", "後背包"]
+            }
         ];
 
         const infoData = {
             flights: [
-                { leg: "去程 CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回程 CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去：桃園 TPE → 關西 KIX", code: "CI172", time: "14:20 - 17:50" },
+                { leg: "回：關西 KIX → 桃園 TPE", code: "CI153", time: "14:30 - 16:45" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
@@ -198,27 +256,31 @@
                 { name: "KOKO HOTEL 大阪難波", address: "大阪府大阪市中央區難波千日前1-3-7", map: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
             ],
             links: [
-                { title: "箱館山即時影像", desc: "確認山上雪況。", icon: "fa-video", color: "text-red-500", url: "https://www.hakodateyama.com/winter/" },
-                { title: "JR 西日本運行情報", desc: "交通延誤查詢。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
-                { title: "即時匯率換算", desc: "Google 財經匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
+                { title: "箱館山即時影像", desc: "確認山上雪況與天氣。", icon: "fa-video", color: "text-red-500", url: "https://www.hakodateyama.com/winter/" },
+                { title: "JR 西日本運行情報", desc: "查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
+                { title: "即時匯率換算", desc: "日幣/台幣即時匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
             ],
-            emergency: [{ title: "駐大阪辦事處", tel: "+81-90-8794-4568" }, { title: "警局/救護車", tel: "110 / 119" }],
+            emergency: [
+                { title: "駐大阪辦事處", tel: "+81-90-8794-4568" },
+                { title: "警察局 / 救護車", tel: "110 / 119" }
+            ],
             mapcodes: [
                 { name: "明太子公園", code: "31 162 769*47", note: "門口大型免費停車場" },
                 { name: "La Collina", code: "67 803 260*71", note: "專屬大型免費停車場" },
                 { name: "綠水亭", code: "103 249 718*38", note: "住客免費停車" },
                 { name: "白鬚神社", code: "263 538 411*28", note: "對面小型停車場" },
-                { name: "箱館山滑雪", code: "263 813 615*00", note: "大型收費停車場" },
+                { name: "箱館山滑雪", code: "263 813 615*00", note: "纜車站下大型收費停車場" },
                 { name: "兒童之國", code: "263 451 866*66", note: "收費停車場約500円" },
-                { name: "金閣寺", code: "7 674 815*41", note: "門口付費停車場" },
-                { name: "宇治平等院", code: "7 131 716*88", note: "建議找周邊民營車場" },
-                { name: "難波還車", code: "1 224 457*02", note: "還車點 (記得先加油)" }
+                { name: "金閣寺", code: "7 674 815*41", note: "門口付費專用停車場" },
+                { name: "宇治平等院", code: "7 131 716*88", note: "需尋找周邊民營停車場" },
+                { name: "Toyota 難波", code: "1 224 457*02", note: "還車點 (記得先加油)" }
             ]
         };
 
+        const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
-        const weatherDisplay = document.getElementById('weather-display');
         const weatherLocation = document.getElementById('weather-location');
+        const weatherDisplay = document.getElementById('weather-display');
         let activeIndex = 0;
 
         async function fetchWeather(lat, lon, areaName) {
@@ -232,74 +294,75 @@
         }
 
         function renderTabs() {
-            const tabs = document.getElementById('tabs-container');
-            tabs.innerHTML = '';
+            tabsContainer.innerHTML = '';
             tripData.forEach((item, index) => {
+                const isActive = index === activeIndex;
                 const btn = document.createElement('div');
-                btn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all snap-center ${index === activeIndex ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-white text-gray-500 shadow-sm border border-gray-100'}`;
+                btn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all snap-center ${isActive ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-white text-gray-500 shadow-sm'}`;
                 btn.innerHTML = `<span class="text-[10px] opacity-80">${item.date.split(' ')[0]}</span><span class="text-xl font-bold">${item.day}</span>`;
                 btn.onclick = () => { activeIndex = index; renderTabs(); renderContent(); };
-                tabs.appendChild(btn);
+                tabsContainer.appendChild(btn);
             });
             const infoBtn = document.createElement('div');
-            infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer snap-center ${activeIndex===100?'bg-emerald-500 text-white shadow-lg':'bg-white text-gray-500 shadow-sm border border-gray-100'}`;
+            infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer snap-center ${activeIndex===100?'bg-emerald-500 text-white shadow-lg':'bg-white text-gray-500 shadow-sm'}`;
             infoBtn.innerHTML = `<span class="text-[10px] opacity-80">Info</span><span class="text-xl font-bold"><i class="fas fa-info-circle"></i></span>`;
             infoBtn.onclick = () => { activeIndex = 100; renderTabs(); renderInfo(); };
-            tabs.appendChild(infoBtn);
+            tabsContainer.appendChild(infoBtn);
+
             const listBtn = document.createElement('div');
-            listBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer snap-center ${activeIndex===99?'bg-orange-500 text-white shadow-lg':'bg-white text-gray-500 shadow-sm border border-gray-100'}`;
+            listBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer snap-center ${activeIndex===99?'bg-orange-500 text-white shadow-lg':'bg-white text-gray-500 shadow-sm'}`;
             listBtn.innerHTML = `<span class="text-[10px] opacity-80">List</span><span class="text-xl font-bold"><i class="fas fa-tasks"></i></span>`;
             listBtn.onclick = () => { activeIndex = 99; renderTabs(); renderChecklist(); };
-            tabs.appendChild(listBtn);
+            tabsContainer.appendChild(listBtn);
         }
 
         function renderContent() {
             const data = tripData[activeIndex];
-            contentArea.innerHTML = `<div class="mb-4 px-1 animate-card"><h2 class="text-2xl font-extrabold text-slate-800">${data.date}</h2><p class="text-slate-500 text-sm mt-0.5"><i class="fas fa-map-marker-alt text-red-500 mr-1.5"></i> ${data.area}</p></div>`;
+            contentArea.innerHTML = `<div class="mb-4 px-1 animate-card"><h2 class="text-2xl font-bold text-gray-800">${data.date}</h2><p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1.5"></i> ${data.area}</p></div>`;
             fetchWeather(data.lat, data.lon, data.area.includes("宇治")?"宇治":"京都");
             data.events.forEach((event, idx) => {
-                let color = "#94a3b8"; // Default gray
-                if(event.type==='flight') color = "#2563eb";
-                else if(['spot','snow','shop'].includes(event.type)) color = "#10b981";
-                else if(event.type==='hotel') color = "#6366f1";
-                else if(event.type==='food') color = "#f59e0b";
-                
-                const isFlight = (event.type === 'flight');
-                const cardStyle = isFlight ? `bg-blue-600 border-blue-700` : `bg-white border-[${color}]`;
-                contentArea.insertAdjacentHTML('beforeend', `<div class="${isFlight?'bg-blue-600 text-white shadow-md':'bg-white border-l-[6px] shadow-sm'} rounded-2xl p-4 animate-card flex gap-4 mb-4" style="border-color:${isFlight?'':color}; animation-delay:${idx*50}ms"><div class="w-12 text-center flex-shrink-0"><div class="text-xs font-bold mb-1 ${isFlight?'text-white/80':'text-slate-400'}">${event.time}</div><i class="fas ${event.icon} text-xl" style="color:${isFlight?'#fff':color}"></i></div><div class="flex-1 min-w-0"><h3 class="font-bold text-lg leading-tight">${event.title}</h3><p class="text-sm mt-1.5 ${isFlight?'text-white/90':'text-slate-500'} leading-relaxed">${event.desc}</p>${event.link?`<a href="${event.link}" target="_blank" class="inline-flex items-center gap-1.5 mt-3 text-[10px] ${isFlight?'bg-white/20 text-white':'bg-slate-100 text-slate-700 border border-slate-200'} px-3 py-1.5 rounded-full font-bold transition active:opacity-60"><i class="fas fa-location-arrow"></i> 查看詳情</a>`:''}</div></div>`);
+                let style = { bg: "bg-white", border: "border-gray-200", text: "text-gray-800", icon: "text-gray-400" };
+                if(event.type==='flight') style = { bg: "bg-blue-500 text-white", border: "border-blue-600", icon: "text-white" };
+                else if(event.type==='snow') style = { bg: "bg-cyan-50", border: "border-cyan-400", text: "text-gray-800", icon: "text-cyan-500" };
+                else if(event.type==='hotel') style = { bg: "bg-indigo-50", border: "border-indigo-400", text: "text-gray-800", icon: "text-indigo-500" };
+                contentArea.insertAdjacentHTML('beforeend', `<div class="${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm animate-card flex gap-4 mb-4" style="animation-delay:${idx*50}ms"><div class="w-12 text-center flex-shrink-0"><div class="text-xs font-bold mb-1 opacity-70">${event.time}</div><i class="fas ${event.icon} ${style.icon} text-xl"></i></div><div class="flex-1"><h3 class="font-bold text-lg leading-tight">${event.title}</h3><p class="text-sm mt-1 opacity-80">${event.desc}</p>${event.link?`<a href="${event.link}" target="_blank" class="inline-block mt-2 text-[10px] bg-black/5 px-2 py-1 rounded-full"><i class="fas fa-location-arrow"></i> 查看詳情</a>`:''}</div></div>`);
             });
         }
 
         function renderChecklist() {
-            contentArea.innerHTML = '<h2 class="text-2xl font-extrabold text-slate-800 px-1 mb-4">行李檢查表</h2>';
+            contentArea.innerHTML = '<h2 class="text-2xl font-bold text-gray-800 px-1 mb-4">行李檢查表</h2>';
             checklistData.forEach(cat => {
-                const itemsHtml = cat.items.map(item => `<label class="flex items-center gap-3 py-3 border-b border-slate-100 active:bg-slate-50 transition-colors"><input type="checkbox" class="hidden peer"><div class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all"><svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><span class="text-slate-700 font-medium peer-checked:text-slate-400 peer-checked:line-through">${item}</span></label>`).join('');
-                contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-4"><h3 class="font-bold text-blue-600 mb-3 border-l-4 border-blue-600 pl-3 leading-none">${cat.category}</h3><div class="flex flex-col">${itemsHtml}</div></div>`);
+                const itemsHtml = cat.items.map(item => `<label class="flex items-center gap-3 py-3 border-b border-gray-100 checkbox-wrapper"><input type="checkbox" class="hidden peer"><div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500"><svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><span class="text-gray-700 peer-checked:text-gray-400 peer-checked:line-through">${item}</span></label>`).join('');
+                contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4"><h3 class="font-bold text-blue-600 mb-2 border-l-4 border-blue-600 pl-3">${cat.category}</h3><div class="flex flex-col">${itemsHtml}</div></div>`);
             });
         }
 
         function renderInfo() {
-            contentArea.innerHTML = '<h2 class="text-2xl font-extrabold text-slate-800 px-1 mb-4">旅行資訊中心</h2>';
-            let linksHtml = infoData.links.map(l => `<a href="${l.url}" target="_blank" class="flex items-center gap-4 py-4 border-b border-slate-50 last:border-0 active:bg-slate-50 transition-colors"><div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center shrink-0"><i class="fas ${l.icon} ${l.color} text-xl"></i></div><div class="flex-1"><div class="font-bold text-slate-800">${l.title}</div><div class="text-xs text-slate-400 mt-0.5">${l.desc}</div></div><i class="fas fa-chevron-right text-slate-300 text-xs"></i></a>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-4"><h3 class="font-bold text-emerald-600 mb-4 flex items-center gap-2"><i class="fas fa-tools"></i> 實用工具</h3>${linksHtml}</div>`);
-            let flights = infoData.flights.map(f => `<div class="flex justify-between py-3 border-b border-slate-50 last:border-0"><span class="font-medium text-slate-700">${f.leg}</span><span class="font-bold text-blue-600">${f.time}</span></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-4"><h3 class="font-bold text-indigo-600 mb-3 flex items-center gap-2"><i class="fas fa-plane"></i> 航班資訊</h3>${flights}</div>`);
-            let hotels = infoData.hotels.map(h => `<div class="py-4 border-b border-slate-50 last:border-0"><div class="font-bold text-slate-800">${h.name}</div><div class="text-xs text-slate-400 mt-1">${h.address}</div><a href="${h.map}" target="_blank" class="inline-block mt-2 text-xs font-bold text-blue-500 underline">查看地圖</a></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-4"><h3 class="font-bold text-indigo-600 mb-3 flex items-center gap-2"><i class="fas fa-bed"></i> 住宿地點</h3>${hotels}</div>`);
-            let emer = infoData.emergency.map(e => `<div class="flex justify-between items-center py-3 border-b border-slate-50 last:border-0"><span class="font-medium text-slate-700">${e.title}</span><a href="tel:${e.tel}" class="font-extrabold text-red-500 bg-red-50 px-3 py-1.5 rounded-xl border border-red-100">${e.tel}</a></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-4"><h3 class="font-bold text-red-500 mb-3 flex items-center gap-2"><i class="fas fa-exclamation-circle"></i> 緊急聯絡</h3>${emer}</div>`);
+            contentArea.innerHTML = '<h2 class="text-2xl font-bold text-gray-800 px-1 mb-4">旅行資訊中心</h2>';
+            let linksHtml = infoData.links.map(l => `<a href="${l.url}" target="_blank" class="flex items-center gap-3 py-3 border-b last:border-0"><div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center"><i class="fas ${l.icon} ${l.color} text-lg"></i></div><div class="flex-1"><div class="font-bold text-gray-800">${l.title}</div><div class="text-xs text-gray-500">${l.desc}</div></div></a>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-emerald-600 mb-2">實用工具</h3>${linksHtml}</div>`);
+            let flights = infoData.flights.map(f => `<div class="flex justify-between py-2 border-b last:border-0"><span>${f.leg} ${f.code}</span><span class="font-bold text-blue-600">${f.time}</span></div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-indigo-600 mb-2">航班資訊</h3>${flights}</div>`);
+            let hotels = infoData.hotels.map(h => `<div class="py-3 border-b last:border-0"><div class="font-bold">${h.name}</div><div class="text-xs text-gray-500 mb-1">${h.address}</div><a href="${h.map}" target="_blank" class="text-xs text-blue-500 underline">地圖導航</a></div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-indigo-600 mb-2">住宿地點</h3>${hotels}</div>`);
+            let emer = infoData.emergency.map(e => `<div class="flex justify-between py-2 border-b last:border-0"><span>${e.title}</span><a href="tel:${e.tel}" class="text-red-500 font-bold">${e.tel}</a></div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-red-500 mb-2">緊急聯絡</h3>${emer}</div>`);
         }
 
         function showMapcode(show) {
             const modal = document.getElementById('mapcode-modal');
             const body = document.getElementById('mapcode-body');
             if (show) {
-                body.innerHTML = infoData.mapcodes.map(m => `<tr><td><div class="font-bold text-slate-800">${m.name}</div></td><td class="mapcode-num">${m.code}</td><td class="parking-note">${m.note}</td></tr>`).join('');
+                body.innerHTML = infoData.mapcodes.map(m => `<tr><td><div class="font-bold">${m.name}</div></td><td class="mapcode-num">${m.code}</td><td class="parking-note">${m.note}</td></tr>`).join('');
                 modal.style.display = 'flex';
-            } else { modal.style.display = 'none'; }
+            } else { 
+                modal.style.display = 'none'; 
+            }
         }
 
         renderTabs(); renderContent();
     </script>
 </body>
 </html>
+
+
