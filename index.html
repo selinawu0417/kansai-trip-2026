@@ -54,16 +54,31 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mt-6">
-                <a href="https://translate.google.com/?sl=ja&tl=zh-TW" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
-                    <i class="fas fa-language"></i> <span>Google翻譯</span>
-                </a>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=KOKO+HOTEL+Osaka+Namba+Sennichimae" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 border border-blue-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-blue-700">
-                    <i class="fas fa-map-marked-alt"></i> <span>行程地圖</span>
-                </a>
+                         <button onclick="toggleModal(true)" class="flex items-center justify-center gap-2 bg-emerald-600 border border-emerald-500 text-white py-2.5 rounded-xl shadow-md transition active:scale-95 hover:bg-emerald-700">
+                    <i class="fas fa-list-ol"></i> <span>Mapcode 表格</span>
+                </button>
             </div>
         </div>
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+    </div>
+
+    <div id="mapcode-modal" onclick="if(event.target == this) toggleModal(false)">
+        <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl animate-card">
+            <div class="bg-emerald-600 p-4 text-white flex justify-between items-center">
+                <h3 class="font-bold text-lg"><i class="fas fa-map-marked-alt mr-2"></i>自駕 Mapcode 與停車指南</h3>
+                <button onclick="toggleModal(false)" class="w-8 h-8 flex items-center justify-center bg-white/20 rounded-full"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="max-h-[70vh] overflow-y-auto">
+                <table class="mapcode-table">
+                    <thead>
+                        <tr><th>地點</th><th>Mapcode (數字)</th><th>停車補充</th></tr>
+                    </thead>
+                    <tbody id="mapcode-body">
+                        </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-gray-50 text-center text-xs text-gray-500 font-medium">※ 直接輸入數字至車載導航即可</div>
+        </div>
     </div>
 
     <div class="sticky top-0 z-30 bg-[#f3f4f6]/95 backdrop-blur-sm pt-2 pb-1">
@@ -237,8 +252,8 @@
         // ==========================================
         const infoData = {
             flights: [
-                { leg: "去：桃園 TPE 第二航廈 → 關西 KIX 第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回：關西 KIX 第一航廈 → 桃園 TPE 第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去程：桃園 TPE 第二航廈 → 關西 KIX 第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
+                { leg: "回程：關西 KIX 第一航廈 → 桃園 TPE 第二航廈", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
