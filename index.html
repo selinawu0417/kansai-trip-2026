@@ -109,11 +109,11 @@
                     { time: "18:00", title: "祇園花見小路", desc: "古色古香的街道散步，有機會看到藝妓。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
                     { 
                         time: "19:00", 
-                        title: "清水/祇園晚餐", 
-                        desc: "推薦：<span class='tag-food'>奧丹清水</span> (百年湯豆腐) 或 <span class='tag-food'>名代豬排</span> (Katsukura)。", 
+                        title: "晚餐：先斗町 喜楽 (Kiraku)", 
+                        desc: "在充滿京都風情的先斗町享用 <span class='tag-food'>黑毛和牛壽喜燒/涮涮鍋</span>。", 
                         type: "food", 
                         icon: "fa-utensils",
-                        link: "https://www.google.com/maps/d/6"
+                        link: "https://tabelog.com/en/kyoto/A2601/A260201/26041019/"
                     },
                     { time: "宿", title: "續住 Emion 京都", desc: "", type: "hotel", icon: "fa-bed", link: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" }
                 ]
@@ -225,9 +225,7 @@
             }
         ];
 
-        // ==========================================
-        // 2. 檢查表資料
-        // ==========================================
+        // 其餘邏輯 (checklistData, infoData, functions) 保持不變...
         const checklistData = [
             {
                 category: "必備證件 & 金錢",
@@ -258,9 +256,6 @@
             }
         ];
 
-        // ==========================================
-        // 3. 資訊中心資料
-        // ==========================================
         const infoData = {
             flights: [
                 { leg: "去：桃園機場第二航廈→關西機場第一航廈", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
@@ -294,9 +289,6 @@
             ]
         };
 
-        // ==========================================
-        // 4. 程式邏輯
-        // ==========================================
         const tabsContainer = document.getElementById('tabs-container');
         const contentArea = document.getElementById('content-area');
         const weatherLocation = document.getElementById('weather-location');
