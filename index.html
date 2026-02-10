@@ -117,7 +117,7 @@
                     { time: "17:30", title: "祇園花見小路", desc: "古色古香的街道散步。", type: "spot", icon: "fa-camera", link: "https://www.google.com/maps/search/?api=1&query=Hanamikoji+Street" },
                     { 
                         time: "19:00", 
-                        title: "晚餐：先斗町 喜楽", 
+                        title: "晚餐：先斗町 喜樂", 
                         desc: "享用 <span class='tag-food'>黑毛和牛壽喜燒/涮涮鍋</span>。", 
                         type: "food", 
                         icon: "fa-utensils",
@@ -198,33 +198,71 @@
             }
         ];
 
+        // ==========================================
+        // 2. 檢查表資料 (完整恢復)
+        // ==========================================
         const checklistData = [
             {
                 category: "必備證件 & 金錢",
                 items: [
                     "護照 (有效期6個月以上)", "日文駕照譯本", "台灣駕照",
                     "Visit Japan Web QR Code 截圖", "日幣現金",
-                    "海外高回饋信用卡", "eSIM/網卡/漫遊", "iPhone Suica 綁定"
+                    "海外高回饋信用卡", "有預先刷機票或住宿的信用卡", "實體網卡/eSIM/漫遊開通", 
+                    "換卡針 (如用實體網卡)", "iPhone 西瓜卡 (Suica) 綁定", "預約文件資料影本"
                 ]
             },
             {
                 category: "冬季穿搭 (2月很冷!)",
                 items: [
-                    "羽絨保暖外套", "發熱衣", "大人小孩防寒衣物", "毛帽 (遮耳)",
-                    "手套 (滑雪必備)", "厚襪子", "暖暖包", "雪鞋/防水鞋"
+                    "羽絨保暖外套", "發熱衣", "大人防寒衣物", "小孩防寒衣物", "毛帽 (遮耳)",
+                    "手套 (滑雪必備)", "保暖圍巾", "厚襪子", "暖暖包 (貼式/手握)",
+                    "雪鞋 (防水佳)", "好走的鞋", "行李箱", "後背包或隨身包"
+                ]
+            },
+            {
+                category: "電子 & 雜物",
+                items: [
+                    "行動電源 (隨身)", "手機充電器", "插座/充電線", "轉接頭", "自拍棒/腳架",
+                    "環保購物袋", "折疊雨傘", "常備藥品", "盥洗用品", "保養品",
+                    "小孩配件", "免洗褲", "護唇膏", "衛生紙/濕紙巾", "水壺", "耳塞",
+                    "手機掛繩", "iPad (離線影片)"
                 ]
             }
         ];
 
+        // ==========================================
+        // 3. 資訊中心資料 (完整恢復)
+        // ==========================================
         const infoData = {
             flights: [
-                { leg: "去程", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
-                { leg: "回程", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
+                { leg: "去：桃園 TPE → 關西 KIX", code: "CI172", time: "14:20 - 17:50", route: "TPE ➝ KIX" },
+                { leg: "回：關西 KIX → 桃園 TPE", code: "CI153", time: "14:30 - 16:45", route: "KIX ➝ TPE" }
             ],
             hotels: [
                 { name: "京都 Emion 飯店", address: "京都市下京區朱雀堂之口町20-4", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Emion+Kyoto" },
                 { name: "琵琶湖綠水亭", address: "滋賀縣大津市雄琴6-1-6", map: "https://www.google.com/maps/search/?api=1&query=Biwako+Ryokusuitei" },
-                { name: "KOKO HOTEL 難波", address: "大阪府大阪市中央區難波千日前1-3-7", map: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
+                { name: "KOKO HOTEL 大阪難波千日前", address: "大阪府大阪市中央區難波千日前1-3-7", map: "https://www.google.com/maps/search/?api=1&query=KOKO+HOTEL+Osaka+Namba+Sennichimae" }
+            ],
+            links: [
+                { title: "箱館山即時影像", desc: "確認山上雪況與天氣。", icon: "fa-video", color: "text-red-500", url: "https://www.hakodateyama.com/winter/" },
+                { title: "JR 西日本運行情報", desc: "查詢電車是否誤點或停駛。", icon: "fa-train", color: "text-blue-600", url: "https://global.trafficinfo.westjr.co.jp/en/kansai" },
+                { title: "即時匯率換算", desc: "日幣/台幣即時匯率。", icon: "fa-calculator", color: "text-green-600", url: "https://www.google.com/finance/quote/JPY-TWD" }
+            ],
+            emergency: [
+                { title: "警察局", tel: "110" },
+                { title: "救護車", tel: "119" },
+                { title: "駐大阪辦事處 (急難)", tel: "+81-90-8794-4568" }
+            ],
+            guides: [
+                {
+                    title: "入境教學：Visit Japan Web",
+                    content: "入境審查與海關申報已合併為一個 QR Code。請截圖備用。",
+                    link: "https://vjw-lp.digital.go.jp/zh-hant/"
+                },
+                {
+                    title: "退稅說明",
+                    content: "同一天同一店滿 5,000 日圓可退稅。消耗品不可在境內拆封。"
+                }
             ]
         };
 
@@ -268,7 +306,6 @@
                 tabsContainer.appendChild(btn);
             });
 
-            // Info & List 按鈕邏輯
             const infoBtn = document.createElement('div');
             const isInfoActive = activeIndex === 100;
             infoBtn.className = `flex-shrink-0 w-16 h-18 flex flex-col items-center justify-center rounded-2xl cursor-pointer transition-all duration-300 snap-center ${isInfoActive ? 'bg-emerald-500 text-white shadow-lg scale-105 ring-2 ring-emerald-300' : 'bg-white text-gray-500 shadow-sm'}`;
@@ -313,6 +350,7 @@
                 else if(event.type === 'hotel') style = { bg: "bg-indigo-50", border: "border-indigo-500", text: "text-gray-800", icon: "text-indigo-500" };
                 else if(event.type === 'food') style = { bg: "bg-orange-50", border: "border-orange-400", text: "text-gray-800", icon: "text-orange-500" };
                 else if(event.type === 'spot') style = { bg: "bg-white", border: "border-green-500", text: "text-gray-800", icon: "text-green-500" };
+                else if(event.type === 'car') style = { bg: "bg-zinc-100", border: "border-zinc-500", text: "text-gray-800", icon: "text-zinc-500" };
 
                 const isDark = (event.type === 'flight' || event.type === 'snow');
                 const btnClass = isDark ? 'bg-white/20 text-white hover:bg-white/30' : 'bg-gray-600 text-white shadow-sm hover:bg-gray-700';
@@ -320,7 +358,6 @@
                 const card = document.createElement('div');
                 card.className = `${style.bg} border-l-[6px] ${style.border} rounded-2xl p-4 shadow-sm relative overflow-hidden animate-card flex gap-4 items-start mb-4`;
                 card.style.animationDelay = `${idx * 50}ms`;
-                
                 card.innerHTML = `
                     <div class="flex flex-col items-center pt-1 w-12 text-center flex-shrink-0">
                         <div class="${isDark?'text-white/90':'text-gray-500'} text-xs font-bold mb-1">${event.time}</div>
@@ -339,12 +376,13 @@
         function renderChecklist() {
             contentArea.innerHTML = '';
             weatherLocation.innerText = "清單";
-            weatherDisplay.innerHTML = '<i class="fas fa-check"></i>';
+            weatherDisplay.innerHTML = '<i class="fas fa-tasks"></i>';
             const savedState = JSON.parse(localStorage.getItem('trip_checklist') || '{}');
-            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">行李檢查表</h2></div>');
+            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">行李檢查表</h2><p class="text-gray-500 text-sm mt-1">自動儲存進度</p></div>');
             checklistData.forEach((cat, idx) => {
                 const section = document.createElement('div');
                 section.className = "bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card";
+                section.style.animationDelay = `${idx * 100}ms`;
                 const itemsHtml = cat.items.map(item => {
                     const checked = savedState[item] ? 'checked' : '';
                     return `<label class="checkbox-wrapper flex items-center gap-3 py-3 border-b last:border-0 border-gray-100 cursor-pointer"><input type="checkbox" class="hidden peer" value="${item}" ${checked} onchange="toggleCheck(this)"><div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center transition-all peer-checked:bg-blue-500 peer-checked:border-blue-500"><svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><span class="text-gray-700 peer-checked:text-gray-400 peer-checked:line-through transition-all">${item}</span></label>`;
@@ -357,14 +395,43 @@
         function renderInfo() {
             contentArea.innerHTML = '';
             weatherLocation.innerText = "資訊";
-            weatherDisplay.innerHTML = '<i class="fas fa-info"></i>';
-            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">旅行資訊</h2></div>');
-            
-            let flightHtml = infoData.flights.map(f => `<div class="flex justify-between py-2 border-b last:border-0"><span>${f.leg} ${f.code}</span><span class="text-blue-600 font-bold">${f.time}</span></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg mb-2">航班資訊</h3>${flightHtml}</div>`);
+            weatherDisplay.innerHTML = '<i class="fas fa-info-circle"></i>';
+            contentArea.insertAdjacentHTML('beforeend', '<div class="mb-4 px-1"><h2 class="text-2xl font-bold text-gray-800">旅行資訊中心</h2></div>');
 
-            let hotelHtml = infoData.hotels.map(h => `<div class="py-2 border-b last:border-0"><div class="font-bold">${h.name}</div><div class="text-xs text-gray-500">${h.address}</div></div>`).join('');
-            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg mb-2">住宿地點</h3>${hotelHtml}</div>`);
+            // 實用連結
+            let linksHtml = infoData.links.map(l => `
+                <a href="${l.url}" target="_blank" class="flex items-center gap-3 border-b last:border-0 border-gray-100 py-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center"><i class="fas ${l.icon} ${l.color} text-lg"></i></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-800">${l.title}</div>
+                        <div class="text-xs text-gray-500">${l.desc}</div>
+                    </div>
+                </a>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-emerald-600 mb-2">實用工具</h3>${linksHtml}</div>`);
+
+            // 航班
+            let flightHtml = infoData.flights.map(f => `
+                <div class="flex justify-between items-center border-b last:border-0 border-gray-100 py-2">
+                    <div><div class="text-xs text-gray-400">${f.leg}</div><div class="font-bold text-gray-800">${f.code}</div></div>
+                    <div class="text-right"><div class="text-xs text-gray-400">${f.route}</div><div class="font-bold text-blue-600">${f.time}</div></div>
+                </div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-indigo-600 mb-2">航班資訊</h3>${flightHtml}</div>`);
+
+            // 緊急
+            let emerHtml = infoData.emergency.map(e => `
+                <div class="flex justify-between items-center py-2 border-b last:border-0">
+                    <span class="text-gray-700">${e.title}</span>
+                    <a href="tel:${e.tel}" class="font-bold text-red-500 bg-red-50 px-2 py-1 rounded">${e.tel}</a>
+                </div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-red-500 mb-2">緊急聯絡</h3>${emerHtml}</div>`);
+            
+            // 指南
+            let guideHtml = infoData.guides.map(g => `
+                <div class="mt-3 p-3 bg-gray-50 rounded-lg">
+                    <div class="font-bold text-gray-800 mb-1">${g.title}</div>
+                    <div class="text-sm text-gray-600">${g.content}</div>
+                </div>`).join('');
+            contentArea.insertAdjacentHTML('beforeend', `<div class="bg-white rounded-2xl p-5 shadow-sm mb-4 animate-card"><h3 class="font-bold text-lg text-emerald-600 mb-2">必讀指南</h3>${guideHtml}</div>`);
         }
 
         window.toggleCheck = function(checkbox) {
